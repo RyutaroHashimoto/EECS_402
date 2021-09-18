@@ -17,7 +17,7 @@ const double LOWER_BALANCE_BORDER = 1000.00;
 const double UPPER_BALANCE_BORDER = 15000.00;
 
 //global function
-//Function: Call accrueOneMonthsInterest for numMonths specified.
+//Function: Call accrueOneMonthsInterest for numMonths times.
 bool accrueInterest(
     double &balanceAmt,
     const int numMonths,
@@ -58,7 +58,7 @@ int main()
     if (!(accrueInterest(balanceAmt, numMonths, doPrintEachMonth)))
     {
         // Exit whith error
-        cout << "Sorry, an error was detected.  Unable to provide results!" 
+        cout << "Sorry, an error was detected. Unable to provide results!" 
              << endl;
         return 1;
     } else {
@@ -74,6 +74,7 @@ bool accrueInterest(
     const bool doPrintEachMonth)
 {
     double initialBalance = 0;
+    int i;
 
     // Check whether input values are logical
     if (numMonths <= 0)
@@ -86,9 +87,8 @@ bool accrueInterest(
 
     initialBalance = balanceAmt;
 
-
     // Execute the calculation
-    for (int i = 0; i < numMonths; i++)
+    for (i = 0; i < numMonths; i++)
     {
         if (!(accrueOneMonthsInterest(balanceAmt, doPrintEachMonth)))
         {
@@ -113,6 +113,7 @@ bool accrueOneMonthsInterest(
 {
     double interest;
     double interestRate;
+    double initialBalance;
 
     // Check whether input values are logical
     if (balanceAmt < 0)
@@ -128,7 +129,7 @@ bool accrueOneMonthsInterest(
     {
         interestRate = MAXIMUM_INTEREST_RATE;
     }
-    else if (balanceAmt > LOWER_BALANCE_BORDER)
+    else if (balanceAmt >= LOWER_BALANCE_BORDER)
     {
         interestRate = STANDARD_INTEREST_RATE;
     }
@@ -137,26 +138,21 @@ bool accrueOneMonthsInterest(
         interestRate = MINIMUM_INTEREST_RATE;
     }
 
-    // Calculate interest
+    // Calculate interest and new balance
+    initialBalance = balanceAmt;
     interest = balanceAmt * interestRate;
+    balanceAmt += interest;
 
-    // print current balance if requested
+    // print info if requested
     if (doPrintInfo)
     {
         cout << "Accruing interest for 1 month:" << endl;
-        cout << "  Initial balance: " << balanceAmt << endl;
+        cout << "  Initial balance: " << initialBalance << endl;
         cout << "  Initial rate: " << interestRate << endl;
         cout << "  Interest accrued: " << interest << endl;
-    }
-
-    // Calculate new balane
-    balanceAmt += interest;
-
-    if (doPrintInfo)
-    {
         cout << "  New balance: " << balanceAmt << endl;
     }
-    
+
     // exit without error
     return true;
     }
