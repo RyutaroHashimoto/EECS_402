@@ -58,7 +58,7 @@ int main()
     if (!(accrueInterest(balanceAmt, numMonths, doPrintEachMonth)))
     {
         // Exit whith error
-        cout << "Sorry, an error was detected. Unable to provide results!" 
+        cout << "Sorry, an error was detected.  Unable to provide results!"
              << endl;
         return 1;
     } else {
