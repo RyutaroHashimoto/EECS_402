@@ -13,8 +13,8 @@ const int MAXIMUM_COLOR_VALUE = 1000;
 const int MINIMUM_COLOR_VALUE = 0;
 const int DEFAULT_ROW_VALUE = -99999;
 const int DEFAULT_COL_VALUE = -99999;
-
-//global function
+const int DEFAULT_IMAGE_HEIGHT = 10;
+const int DEFAULT_IMAGE_WIDTH = 18;
 
 //global Class
 class ColorClass
@@ -108,13 +108,45 @@ private:
     int colValue;
 };
 
+class ColorImageClass
+{
+public:
+    // Initiialy set black image
+    ColorImageClass();
+
+    // Initiialy set all image pixel to the color provided
+    void initializeTo(ColorClass &inColor);
+
+    // pixel-wise addition (return true if at least one pixel clipped)
+    bool addImageTo(ColorImageClass &rhsImg);
+
+    // pixel values to be set to the sum of the corresponding pixels in
+    // each image in the imagesToAdd
+    bool addImages(int numImgsToAdd, ColorImageClass imagesToAdd[]);
+
+    //  set the pixel at the location specified to the color provided
+    bool setColorAtLocation(RowColumnClass &inRowCol, ColorClass &inColor);
+
+    // get color at provided row/col index location if valid
+    bool getColorAtLocation(RowColumnClass &inRowCol, ColorClass &outColor);
+
+    // print contents of the image
+    void printImage();
+
+private:
+    ColorClass imagePixelColor[DEFAULT_IMAGE_HEIGHT][DEFAULT_IMAGE_WIDTH];
+};
+
+#ifdef ANDREW_TEST
+#include "andrewTest.h"
+#else
 int main()
 {
     ColorClass testColor;
     RowColumnClass testRowCol;
     RowColumnClass testRowColOther(111, 222);
-    // ColorImageClass testImage;
-    // ColorImageClass testImages[3];
+    ColorImageClass testImage;
+    ColorImageClass testImages[3];
 
     //Test some basic ColorClass operations...
     cout << "Initial: ";
@@ -156,8 +188,105 @@ int main()
     testRowCol.printRowCol();
     cout << endl;
 
+    //Test some basic ColorImageClass operations...
+    testColor.setToRed();
+    testImage.initializeTo(testColor);
+
+    testRowCol.setRowCol(555, 5);
+    cout << "Want: Color at [555,5]: Invalid Index!" << endl;
+    cout << "Color at ";
+    testRowCol.printRowCol();
+    cout << ": ";
+    if (testImage.getColorAtLocation(testRowCol, testColor))
+    {
+        testColor.printComponentValues();
+    }
+    else
+    {
+        cout << "Invalid Index!";
+    }
+    cout << endl;
+
+    testRowCol.setRow(4);
+    cout << "Want: Color at [4,5]: R: 1000 G: 0 B: 0" << endl;
+    cout << "Color at ";
+    testRowCol.printRowCol();
+    cout << ": ";
+    if (testImage.getColorAtLocation(testRowCol, testColor))
+    {
+        testColor.printComponentValues();
+    }
+    else
+    {
+        cout << "Invalid Index!";
+    }
+    cout << endl;
+
+    //Set up an array of images of different colors
+    testColor.setToRed();
+    testColor.adjustBrightness(0.25);
+    testImages[0].initializeTo(testColor);
+    testColor.setToBlue();
+    testColor.adjustBrightness(0.75);
+    testImages[1].initializeTo(testColor);
+    testColor.setToGreen();
+    testImages[2].initializeTo(testColor);
+
+    //Modify a few individual pixel colors
+    testRowCol.setRowCol(4, 2);
+    testColor.setToWhite();
+    testImages[1].setColorAtLocation(testRowCol, testColor);
+
+    testRowCol.setRowCol(2, 4);
+    testColor.setToBlack();
+    testImages[2].setColorAtLocation(testRowCol, testColor);
+
+    //Add up all images in testImages array and assign result
+    //to the testImage image
+    testImage.addImages(3, testImages);
+
+    //Check some certain values
+    cout << "Added values:" << endl;
+    for (int colInd = 0; colInd < 8; colInd += 2)
+    {
+        testRowCol.setRowCol(4, colInd);
+        cout << "Color at ";
+        testRowCol.printRowCol();
+        cout << ": ";
+        if (testImage.getColorAtLocation(testRowCol, testColor))
+        {
+            testColor.printComponentValues();
+        }
+        else
+        {
+            cout << "Invalid Index!";
+        }
+        cout << endl;
+    }
+
+    for (int rowInd = 0; rowInd < 8; rowInd += 2)
+    {
+        testRowCol.setRowCol(rowInd, 4);
+        cout << "Color at ";
+        testRowCol.printRowCol();
+        cout << ": ";
+        if (testImage.getColorAtLocation(testRowCol, testColor))
+        {
+            testColor.printComponentValues();
+        }
+        else
+        {
+            cout << "Invalid Index!";
+        }
+        cout << endl;
+    }
+
+    cout << "Printing entire test image:" << endl;
+    testImage.printImage();
+
     return 0;
 }
+#endif
 
 ColorClass::ColorClass()
 {
@@ -225,8 +354,8 @@ bool ColorClass::setTo(int inRed, int inGreen, int inBlue)
 bool ColorClass::setTo(ColorClass &inColor)
 {
     redValue = inColor.redValue;
-    greenValue = inColor.blueValue;
-    blueValue = inColor.greenValue;
+    greenValue = inColor.greenValue;
+    blueValue = inColor.blueValue;
 
     return false;
 }
@@ -273,7 +402,7 @@ bool ColorClass::adjustBrightness(const double adjFactor)
 void ColorClass::printComponentValues()
 {
     cout << "R: " << redValue << " G: " << greenValue << " B: "
-         << blueValue << endl;
+         << blueValue;
 }
 
 bool ColorClass::doClipValue(int &inRed, int &inGreen, int &inBlue)
@@ -350,5 +479,113 @@ void RowColumnClass::addRowColTo(RowColumnClass &inRowCol)
 
 void RowColumnClass::printRowCol()
 {
-    cout << "[" << rowValue << "," << colValue  << "]" << endl;
+    cout << "[" << rowValue << "," << colValue << "]";
+}
+
+ColorImageClass::ColorImageClass()
+{
+    ColorClass defaultColor;
+    // default color of imgae is black
+    defaultColor.setToBlack();
+
+    // make all pixel black
+    for (int i = 0; i < DEFAULT_IMAGE_HEIGHT; i++)
+    {
+        for (int j = 0; j < DEFAULT_IMAGE_WIDTH; j++)
+        {
+            imagePixelColor[i][j] = defaultColor;
+        }
+    }
+}
+
+void ColorImageClass::initializeTo(ColorClass &inColor)
+{
+    for (int i = 0; i < DEFAULT_IMAGE_HEIGHT; i++)
+    {
+        for (int j = 0; j < DEFAULT_IMAGE_WIDTH; j++)
+        {
+            imagePixelColor[i][j].setTo(inColor);
+        }
+    }
+}
+
+bool ColorImageClass::addImageTo(ColorImageClass &rhsImg)
+{
+    bool doClip = false;
+    for (int i = 0; i < DEFAULT_IMAGE_HEIGHT; i++)
+    {
+        for (int j = 0; j < DEFAULT_IMAGE_WIDTH; j++)
+        {
+            doClip = (imagePixelColor[i][j].addColor(
+                          rhsImg.imagePixelColor[i][j]) ||
+                      doClip);
+        }
+    }
+    return doClip;
+}
+
+bool ColorImageClass::addImages(int numImgsToAdd,
+                                ColorImageClass imagesToAdd[])
+{
+    bool doClip = false;
+    for (int i = 0; i < DEFAULT_IMAGE_HEIGHT; i++)
+    {
+        for (int j = 0; j < DEFAULT_IMAGE_WIDTH; j++)
+        {
+            // At first, reset current color value
+            imagePixelColor[i][j].setToBlack();
+
+            for (int k = 0; k < numImgsToAdd; k++)
+            {
+                // add color value of each imagesToAdd
+                doClip = (imagePixelColor[i][j].addColor(
+                              imagesToAdd[k].imagePixelColor[i][j]) ||
+                          doClip);
+            }
+        }
+    }
+    return doClip;
+}
+
+bool ColorImageClass::setColorAtLocation(RowColumnClass &inRowCol,
+                                         ColorClass &inColor)
+{
+    if (DEFAULT_IMAGE_HEIGHT < inRowCol.getRow() ||
+        DEFAULT_IMAGE_WIDTH < inRowCol.getCol())
+    {
+        // input location is out of range
+        return false;
+    }
+
+    imagePixelColor[inRowCol.getRow()][inRowCol.getCol()].setTo(inColor);
+    return true;
+}
+
+bool ColorImageClass::getColorAtLocation(RowColumnClass &inRowCol,
+                                         ColorClass &outColor)
+{
+    if (DEFAULT_IMAGE_HEIGHT < inRowCol.getRow() ||
+        DEFAULT_IMAGE_WIDTH < inRowCol.getCol())
+    {
+        // input location is out of range
+        return false;
+    }
+
+    outColor.setTo(imagePixelColor[inRowCol.getRow()][inRowCol.getCol()]);
+    return true;
+}
+
+void ColorImageClass::printImage()
+{
+    for (int i = 0; i < DEFAULT_IMAGE_HEIGHT; i++)
+    {
+        for (int j = 0; j < DEFAULT_IMAGE_WIDTH - 1; j++)
+        {
+            imagePixelColor[i][j].printComponentValues();
+            cout << "--";
+        }
+        // last pixel
+        imagePixelColor[i][DEFAULT_IMAGE_WIDTH - 1].printComponentValues();
+        cout << endl;
+    }
 }
