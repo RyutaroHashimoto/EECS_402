@@ -11,6 +11,8 @@ using namespace std;
 //global constant
 const int MAXIMUM_COLOR_VALUE = 1000;
 const int MINIMUM_COLOR_VALUE = 0;
+const int DEFAULT_ROW_VALUE = -99999;
+const int DEFAULT_COL_VALUE = -99999;
 
 //global function
 
@@ -18,10 +20,10 @@ const int MINIMUM_COLOR_VALUE = 0;
 class ColorClass
 {
 public:
-    // Initiialy set to white without input (all Value is MAXIMUM_COLOR_VALUE)
+    // Initiialy set to white without input (all value is MAXIMUM_COLOR_VALUE)
     ColorClass();
 
-    // Initiialy set to specific Value with input
+    // Initiialy set to specific value with input
     ColorClass(int inRed, int inGreen, int inBlue);
 
     // Set color values to black (min, min, min)
@@ -52,7 +54,7 @@ public:
     bool subtractColor(ColorClass &rhs);
 
     // multiplies each color value by the adjustment factor with clipping
-    bool adjustBrightness(double adjFactor);
+    bool adjustBrightness(const double adjFactor);
 
     // print each of current color values of class
     void printComponentValues();
@@ -66,15 +68,51 @@ private:
     // do clip three color value and eturn whether clipped or not
     bool doClipValue(int &inRed, int &inGreen, int &inBlue);
 
-    // clip Value of color so that values is within the valid range and
+    // clip value of color so that values is within the valid range and
     int clipValue(int &colorValue);
+};
+
+class RowColumnClass
+{
+public:
+    // Initiialy set to -99999 (-99999, -99999)
+    RowColumnClass();
+
+    // Initiialy set to specific value with input (inRow, inCol)
+    RowColumnClass(int inRow, int inCol);
+
+    // Set value values to specific value
+    void setRowCol(int inRow, int inCol);
+
+    // Set row values to specific value
+    void setRow(int inRow);
+
+    // Set columns values to specific value
+    void setCol(int inCol);
+
+    // Get row value
+    int getRow();
+
+    // Get columns value
+    int getCol();
+
+    // adds the index values in the input parameter to the objects
+    void addRowColTo(RowColumnClass &inRowCol);
+
+    // print current value
+    void printRowCol();
+
+private:
+    // row and columns index value
+    int rowValue;
+    int colValue;
 };
 
 int main()
 {
     ColorClass testColor;
-    // RowColumnClass testRowCol;
-    // RowColumnClass testRowColOther(111, 222);
+    RowColumnClass testRowCol;
+    RowColumnClass testRowColOther(111, 222);
     // ColorImageClass testImage;
     // ColorImageClass testImages[3];
 
@@ -96,6 +134,26 @@ int main()
     testColor.adjustBrightness(0.5);
     cout << "Dimmer Green: ";
     testColor.printComponentValues();
+    cout << endl;
+
+    //Test some basic RowColumnClass operations...
+    cout << "Want defaults: ";
+    testRowCol.printRowCol();
+    cout << endl;
+
+    testRowCol.setRowCol(2, 8);
+    cout << "Want 2,8: ";
+    testRowCol.printRowCol();
+    cout << endl;
+
+    cout << "Want 111, 222: ";
+    testRowColOther.printRowCol();
+    cout << endl;
+
+    testRowColOther.setRowCol(4, 2);
+    testRowCol.addRowColTo(testRowColOther);
+    cout << "Want 6,10: ";
+    testRowCol.printRowCol();
     cout << endl;
 
     return 0;
@@ -199,7 +257,7 @@ bool ColorClass::subtractColor(ColorClass &rhs)
     return doClipp;
 }
 
-bool ColorClass::adjustBrightness(double adjFactor)
+bool ColorClass::adjustBrightness(const double adjFactor)
 {
     bool doClipp = false;
 
@@ -244,4 +302,53 @@ int ColorClass::clipValue(int &colorValue)
         return true;
     }
     return false;
+}
+
+RowColumnClass::RowColumnClass()
+{
+    rowValue = DEFAULT_ROW_VALUE;
+    colValue = DEFAULT_COL_VALUE;
+}
+
+RowColumnClass::RowColumnClass(int inRow, int inCol)
+{
+    rowValue = inRow;
+    colValue = inCol;
+}
+
+void RowColumnClass::setRowCol(int inRow, int inCol)
+{
+    rowValue = inRow;
+    colValue = inCol;
+}
+
+void RowColumnClass::setRow(int inRow)
+{
+    rowValue = inRow;
+}
+
+void RowColumnClass::setCol(int inCol)
+{
+    colValue = inCol;
+}
+
+int RowColumnClass::getRow()
+{
+    return rowValue;
+}
+
+int RowColumnClass::getCol()
+{
+    return colValue;
+}
+
+void RowColumnClass::addRowColTo(RowColumnClass &inRowCol)
+{
+    rowValue += inRowCol.rowValue;
+    colValue += inRowCol.colValue;
+}
+
+void RowColumnClass::printRowCol()
+{
+    cout << "[" << rowValue << "," << colValue  << "]" << endl;
 }
