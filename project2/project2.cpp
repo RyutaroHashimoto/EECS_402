@@ -6,7 +6,7 @@ using namespace std;
 //Name: Ryutaro Hashimoto
 //Date: October 12, 2021
 //purpose: This program will define color image class. Image is composed of a
-//collection of pixels. Colors re described by RGB values.
+//collection of pixels. Colors are described by RGB values.
 
 //global constant
 const int MAXIMUM_COLOR_VALUE = 1000;
@@ -68,14 +68,14 @@ private:
     // do clip three color value and eturn whether clipped or not
     bool doClipValue(int &inRed, int &inGreen, int &inBlue);
 
-    // clip value of color so that values is within the valid range and
+    // clip value of color so that values is within the valid range
     int clipValue(int &colorValue);
 };
 
 class RowColumnClass
 {
 public:
-    // Initiialy set to -99999 (-99999, -99999)
+    // Initiialy set to default value (DEFAULT_ROW_VALUE, DEFAULT_COL_VALUE)
     RowColumnClass();
 
     // Initiialy set to specific value with input (inRow, inCol)
@@ -134,6 +134,7 @@ public:
     void printImage();
 
 private:
+    // color image pixel value
     ColorClass imagePixelColor[DEFAULT_IMAGE_HEIGHT][DEFAULT_IMAGE_WIDTH];
 };
 
