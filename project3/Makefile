@@ -13,7 +13,7 @@ all: proj3.exe
 # 	g++ -std=c++98 Stats.o Areas.o math.o -o math.exe
 
 
-proj3.o: proj3.cpp PPMImageClass.o constants.h UtilsFunction.h
+proj3.o: proj3.cpp PPMImageClass.h constants.h UtilsFunction.h
 	g++ -std=c++98 -g -Wall -c proj3.cpp -o proj3.o
 
 ColorClass.o: ColorClass.cpp ColorClass.h constants.h
@@ -22,14 +22,14 @@ ColorClass.o: ColorClass.cpp ColorClass.h constants.h
 RowColumnClass.o: RowColumnClass.cpp RowColumnClass.h constants.h
 	g++ -std=c++98 -g -Wall -c RowColumnClass.cpp -o RowColumnClass.o
 
-ColorImageClass.o: ColorImageClass.cpp ColorImageClass.h ColorClass.o RowColumnClass.o constants.h
+ColorImageClass.o: ColorImageClass.cpp ColorImageClass.h ColorClass.h RowColumnClass.h constants.h
 	g++ -std=c++98 -g -Wall -c ColorImageClass.cpp -o ColorImageClass.o
 
-PPMImageClass.o: PPMImageClass.cpp PPMImageClass.h ColorImageClass.o constants.h
+PPMImageClass.o: PPMImageClass.cpp PPMImageClass.h ColorImageClass.h constants.h
 	g++ -std=c++98 -g -Wall -c PPMImageClass.cpp -o PPMImageClass.o
 
-proj3.exe: proj3.o
-	g++ -std=c++98 proj3.o -o proj3.exe
+proj3.exe: PPMImageClass.o proj3.o 
+	g++ -std=c++98 PPMImageClass.o proj3.o -o proj3.exe
 
 clean:
 	rm -f *.o *.exe

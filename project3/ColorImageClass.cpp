@@ -38,5 +38,3 @@ ColorImageClass::ColorImageClass()
         }
     }
 }
-
-#endif
