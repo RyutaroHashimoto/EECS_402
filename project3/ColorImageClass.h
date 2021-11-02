@@ -5,7 +5,6 @@
 #include <iostream>
 #include "constants.h"
 #include "ColorClass.h"
-#include "RowColumnClass.h"
 using namespace std;
 
 //program header
@@ -20,21 +19,14 @@ public:
     // Initiialy set black image
     ColorImageClass();
 
-    // Initiialy set all image pixel to the color provided
-    void initializeTo(ColorClass &inColor);
-
-    // pixel-wise addition (return true if at least one pixel clipped)
-    bool addImageTo(ColorImageClass &rhsImg);
-
-    // pixel values to be set to the sum of the corresponding pixels in
-    // each image in the imagesToAdd
-    bool addImages(int numImgsToAdd, ColorImageClass imagesToAdd[]);
+    // Initiialy set black image with specified size
+    ColorImageClass(int inHeight, int inWidth);
 
     //  set the pixel at the location specified to the color provided
-    bool setColorAtLocation(RowColumnClass &inRowCol, ColorClass &inColor);
+    bool setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor);
 
     // get color at provided row/col index location if valid
-    bool getColorAtLocation(RowColumnClass &inRowCol, ColorClass &outColor);
+    bool getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor);
 
     // print contents of the image
     void printImage();

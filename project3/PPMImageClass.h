@@ -15,7 +15,28 @@ using namespace std;
 
 class PPMImageClass
 {
+public:
+    // Initially set black 5 by 5image
+    PPMImageClass();
 
+    // Initially set black image with specified size
+    PPMImageClass(int inHeight, int inWidth);
+
+    void PrintImage()
+    {
+        ColorImage.printImage();
+    }
+
+    bool setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor)
+    {
+        ColorImage.setColorAtLocation(rowIdx, colIdx, inColor);
+    }
+
+private:
+    // color image pixel value
+    ColorImageClass ColorImage;
+    int height;
+    int width;
 };
 
 #endif

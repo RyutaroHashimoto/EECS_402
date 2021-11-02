@@ -19,17 +19,14 @@ proj3.o: proj3.cpp PPMImageClass.h constants.h UtilsFunction.h
 ColorClass.o: ColorClass.cpp ColorClass.h constants.h
 	g++ -std=c++98 -g -Wall -c ColorClass.cpp -o ColorClass.o
 
-RowColumnClass.o: RowColumnClass.cpp RowColumnClass.h constants.h
-	g++ -std=c++98 -g -Wall -c RowColumnClass.cpp -o RowColumnClass.o
-
-ColorImageClass.o: ColorImageClass.cpp ColorImageClass.h ColorClass.h RowColumnClass.h constants.h
+ColorImageClass.o: ColorImageClass.cpp ColorImageClass.h ColorClass.h constants.h
 	g++ -std=c++98 -g -Wall -c ColorImageClass.cpp -o ColorImageClass.o
 
 PPMImageClass.o: PPMImageClass.cpp PPMImageClass.h ColorImageClass.h constants.h
 	g++ -std=c++98 -g -Wall -c PPMImageClass.cpp -o PPMImageClass.o
 
-proj3.exe: PPMImageClass.o proj3.o 
-	g++ -std=c++98 PPMImageClass.o proj3.o -o proj3.exe
+proj3.exe: PPMImageClass.o ColorImageClass.o ColorClass.o proj3.o 
+	g++ -std=c++98 PPMImageClass.o ColorImageClass.o ColorClass.o proj3.o -o proj3.exe
 
 clean:
 	rm -f *.o *.exe
