@@ -22,6 +22,9 @@ public:
     // Initiialy set black image with specified size
     ColorImageClass(int inHeight, int inWidth);
 
+    // Initiialy set black image with specified size and maximum color value
+    ColorImageClass(int inHeight, int inWidth, int maxColorValue);
+
     //  set the pixel at the location specified to the color provided
     bool setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor);
 

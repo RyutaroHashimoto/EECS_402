@@ -68,6 +68,35 @@ ColorImageClass::ColorImageClass(int inHeight, int inWidth)
     }
 }
 
+ColorImageClass::ColorImageClass(int inHeight, int inWidth, int maxColorValue)
+{
+    // default image size is defined as global variables
+    height = inHeight;
+    width = inWidth;
+
+    // default color of image is black
+    ColorClass defaultColor;
+    defaultColor.setToBlack();
+
+    // dynamic allocate row vectors
+    imagePixelColor = new ColorClass *[height];
+
+    // dynamic allocate each column values
+    for (int rowIdx = 0; rowIdx < height; rowIdx++)
+    {
+        imagePixelColor[rowIdx] = new ColorClass[width];
+    }
+
+    // set black for each value
+    for (int rowIdx = 0; rowIdx < height; rowIdx++)
+    {
+        for (int colIdx = 0; colIdx < width; colIdx++)
+        {
+            imagePixelColor[rowIdx][colIdx] = defaultColor;
+        }
+    }
+}
+
 bool ColorImageClass::setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor)
 {
     if (height < rowIdx || width < colIdx)

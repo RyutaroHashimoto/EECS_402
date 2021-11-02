@@ -37,20 +37,35 @@ public:
     // Set color values to white (max, max, max)
     void setToWhite();
 
+    // Set color values to black (min, min, min) with specified max
+    void setToBlack(int maxColorValue);
+
+    // Set color values to red (max, min, min) with specified max
+    void setToRed(int maxColorValue);
+
+    // Set color values to green (min, max, min) with specified max
+    void setToGreen(int maxColorValue);
+
+    // Set color values to blue (min, min, max) with specified max
+    void setToBlue(int maxColorValue);
+
+    // Set color values to white (max, max, max) with specified max
+    void setToWhite(int maxColorValue);
+
     // Set color values to specific value
-    bool setTo(int inRed, int inGreen, int inBlue);
+    void setTo(int inRed, int inGreen, int inBlue);
 
     // Set color values to specific class
-    bool setTo(ColorClass &inColor);
+    void setTo(ColorClass &inColor);
 
-    // add color value of another class with clipping if need
-    bool addColor(ColorClass &rhs);
+    // get value of red
+    int getRedValue();
 
-    // substract color value of another class with clipping if need
-    bool subtractColor(ColorClass &rhs);
+    // get value of green
+    int getGreenValue();
 
-    // multiplies each color value by the adjustment factor with clipping
-    bool adjustBrightness(const double adjFactor);
+    // get value of blue
+    int getBlueValue();
 
     // print each of current color values of class
     void printComponentValues();
@@ -60,12 +75,6 @@ private:
     int redValue;
     int greenValue;
     int blueValue;
-
-    // do clip three color value and return whether clipped or not
-    bool doClipValue(int &inRed, int &inGreen, int &inBlue);
-
-    // clip value of color so that values is within the valid range
-    int clipValue(int &colorValue);
 };
 
 #endif
