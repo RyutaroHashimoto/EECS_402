@@ -185,3 +185,8 @@ void PPMImageClass::setColorAtLocation(int rowIdx, int colIdx,
 {
     ColorImage.setColorAtLocation(rowIdx, colIdx, inColor);
 }
+
+void PPMImageClass::ClearMemory()
+{
+    ColorImage.ClearMemory();
+}

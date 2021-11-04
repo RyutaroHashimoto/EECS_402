@@ -44,6 +44,9 @@ public:
     // get max color value of image
     int getMaxColorValue();
 
+    // Clear dynamic allocated memory
+    void ClearMemory();
+
 private:
     ColorImageClass ColorImage;
     int maxColorValue;

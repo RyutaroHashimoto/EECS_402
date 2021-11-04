@@ -92,6 +92,16 @@ ColorImageClass::ColorImageClass(int inHeight, int inWidth, int maxColorValue)
     }
 }
 
+void ColorImageClass::ClearMemory()
+{
+    // Clear dynamic allocated memory
+    for (int rowIdx = 0; rowIdx < height; rowIdx++)
+    {
+        delete[] imagePixelColor[rowIdx];
+    }
+    delete[] imagePixelColor;
+}
+
 bool ColorImageClass::setColorAtLocation(int rowIdx, int colIdx,
                                          ColorClass &inColor)
 {
