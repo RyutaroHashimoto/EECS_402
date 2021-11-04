@@ -4,7 +4,7 @@
 #include <string>
 #include "constants.h"
 #include "PPMImageClass.h"
-#include "UtilsFunction.h"
+#include "ModifyFunction.h"
 using namespace std;
 
 //program header
@@ -13,72 +13,62 @@ using namespace std;
 //purpose: This program will define color image class. Image is composed of a
 //collection of pixels. Colors are described by RGB values.
 
-bool readPPMFile(const string path);
 
 int main()
 {
-    int numRow = 3;
-    int numCol = 3;
+    bool isProgramContinue = true;
+    int commandChoice;
+    PPMImageClass Image;
+    string path;
 
-    ColorImageClass temp_img;
-
-    temp_img = ColorImageClass(numRow, numCol);
-
-    temp_img.printImage();
-
-    cout << PPM_IMAGE_MAGIC_NUMBER << endl;
-
-    PPMImageClass sample_img;
-    sample_img = PPMImageClass(2, 3);
-
-    readPPMFile("sample/small.ppm");
-}
-
-bool readPPMFile(const string path)
-{
-    ifstream inFile;
-    string imageType;
-    int height;
-    int width;
-    int red;
-    int green;
-    int blue;
-    int maxColorValue;
-
-    inFile.open(path);
-
-    // Check file path is right or not
-    if (inFile.fail())
+    // Firstly, read original image from PPM file
+    if (!(loadPPMImage(Image)))
     {
-        cout << "Unable to open input file!" << endl;
-        exit(1);
+        return 1;
     }
 
-    inFile >> imageType;
-    inFile >> height;
-    inFile >> width;
-    inFile >> maxColorValue;
-
-    cout << width << endl;
-
-
-    PPMImageClass Image;
-    Image = PPMImageClass(height, width);
-
-    ColorClass ColorValue;
-
-    for (int i = 0; i < height; i++)
+    // read command and execute
+    while (isProgramContinue)
     {
-        for (int j=0; j < width; j++)
+        cout << "1. Annotate image with rectangle" << endl;
+        cout << "2. Annotate image with pattern from file" << endl;
+        cout << "3. Insert another " << endl;
+        cout << "4. Write out current image" << endl;
+        cout << "5. Exit the program" << endl;
+
+        getInputVale(commandChoice, "Enter int for main menu choice: ");
+        while (commandChoice > 5 || commandChoice < 1)
         {
-            inFile >> red;
-            inFile >> green;
-            inFile >> blue;
-            ColorValue.setTo(red, green, blue);
-            Image.setColorAtLocation(i, j, ColorValue);
+            cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~5" << endl;
+            getInputVale(commandChoice, "Try again - Enter int for main menu choice: ");
+        }
+
+        if (commandChoice == 1)
+        {
+            annotateImageRectangle(Image);
+        }
+        else if (commandChoice == 2)
+        {
+            annotateImagePattern(Image);
+        }
+        else if (commandChoice == 3)
+        {
+            insertAnotherImage(Image);
+        }
+        else if (commandChoice == 4)
+        {
+            outputPPMImage(Image);
+        }
+        else if (commandChoice == 5)
+        {
+            isProgramContinue = false;
         }
     }
+    
 
-    Image.PrintImage();
-    return true;
-    }
+
+
+
+    cout << "Thank you for using this program " << endl;
+    return 0;
+}

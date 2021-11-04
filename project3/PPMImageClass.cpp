@@ -91,19 +91,19 @@ bool PPMImageClass::readPPMFile(const string path)
         {
             if (!(readValue(red, inFile) && readValue(green, inFile) && 
                 readValue(blue, inFile)))
-                {
-                    inFile.close();
-                    return false;
-                }
+            {
+                inFile.close();
+                return false;
+            }
 
-                if (!(MINIMUM_COLOR_VALUE <= red && red <= maxColorValue &&
-                      MINIMUM_COLOR_VALUE <= green && green <= maxColorValue &&
-                      MINIMUM_COLOR_VALUE <= blue && blue <= maxColorValue))
-                {
-                    cout << "At least, one of RGB value is out of valid range." << endl;
-                    cout << "Check the input value." << endl;
-                    inFile.close();
-                    return false;
+            if (!(MINIMUM_COLOR_VALUE <= red && red <= maxColorValue &&
+                    MINIMUM_COLOR_VALUE <= green && green <= maxColorValue &&
+                    MINIMUM_COLOR_VALUE <= blue && blue <= maxColorValue))
+            {
+                cout << "At least, one of RGB value is out of valid range." << endl;
+                cout << "Check the input value." << endl;
+                inFile.close();
+                return false;
             }
 
             ColorValue.setTo(red, green, blue);
@@ -111,7 +111,6 @@ bool PPMImageClass::readPPMFile(const string path)
         }
     }
     inFile.close();
-    ColorImage.printImage();
     return true;
 }
 
@@ -153,56 +152,27 @@ bool PPMImageClass::writePPMFile(const string path)
     return true;
 }
 
-bool PPMImageClass::readValue(int &value, ifstream &inFile)
+int PPMImageClass::getHeight()
 {
-    bool validInputFound = false;
-    while (!validInputFound)
-    {
-        inFile >> value;
-        if (inFile.eof())
-        {
-            cout << "EOF before reading value." << endl;
-            cout << "There are some missing values." << endl;
-            break;
-        }
-        else if (inFile.fail())
-        {
-            cout << "At least, one of input values is invalid." << endl;
-            cout << "Check the input value." << endl;
-            break;
-        }
-        else
-        {
-            validInputFound = true;
-        }
-
-    }
-    return validInputFound;
+    return height;
 }
 
-bool PPMImageClass::readValue(string &value, ifstream &inFile)
+int PPMImageClass::getWidth()
 {
-    bool validInputFound = false;
-    while (!validInputFound)
-    {
-        inFile >> value;
-        if (inFile.eof())
-        {
-            cout << "EOF before reading value" << endl;
-            cout << "There are some missing values." << endl;
-            break;
-        }
-        else if (inFile.fail())
-        {
-            cout << "At least, one of input values is invalid." << endl;
-            cout << "Check the input value." << endl;
-            break;
-        }
-        else
-        {
-            validInputFound = true;
-        }
+    return width;
+}
 
-    }
-    return validInputFound;
+int PPMImageClass::getMaxColorValue()
+{
+    return maxColorValue;
+}
+
+void PPMImageClass::getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor)
+{
+    ColorImage.getColorAtLocation(rowIdx, colIdx, outColor);
+}
+
+void PPMImageClass::setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor)
+{
+    ColorImage.setColorAtLocation(rowIdx, colIdx, inColor);
 }

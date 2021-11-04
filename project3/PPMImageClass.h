@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include "constants.h"
+#include "commonFunc.h"
 #include "ColorImageClass.h"
 using namespace std;
 
@@ -30,15 +31,24 @@ public:
     bool writePPMFile(const string path);
 
     // edit color value of specific point
-    bool setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor)
-    {
-        ColorImage.setColorAtLocation(rowIdx, colIdx, inColor);
-    }
+    void getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor);
 
-    void PrintImage()
-    {
-        ColorImage.printImage();
-    }
+    // edit color value of specific point
+    void setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor);
+
+    // get height of image
+    int getHeight();
+
+    // get width of image
+    int getWidth();
+
+    // get max color value of image
+    int getMaxColorValue();
+
+    // void PrintImage()
+    // {
+    //     ColorImage.printImage();
+    // }
 
 
 private :
@@ -46,10 +56,6 @@ private :
     int height;
     int width;
     int maxColorValue;
-
-    // get and check data in input file stream
-    bool readValue(int &value, ifstream &inFile);
-    bool readValue(string &value, ifstream &inFile);
 };
 
 #endif
