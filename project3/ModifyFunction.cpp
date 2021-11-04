@@ -1,16 +1,9 @@
-//library
-#include <iostream>
-#include "constants.h"
-#include "ColorClass.h"
-#include "PPMImageClass.h"
 #include "ModifyFunction.h"
-using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define color class. Colors are described by RGB
-//values.
+//Date: November 4, 2021
+//purpose: This program will define functions to handle ppm image.
 
 bool loadPPMImage(PPMImageClass &Image)
 {
@@ -32,114 +25,152 @@ void annotateImageRectangle(PPMImageClass &Image)
     int colUpperLeft;
     int rowLowerRight;
     int colLowerRight;
-    bool doFillIn;
-
     int rowIdx;
     int colIdx;
     int nRow = 0;
     int nCol = 0;
+    bool doFillIn;
+    bool isValidInput = false;
 
     ColorClass rectangleColor;
 
     // input how to decide position and size
-    cout << "1. Specify upper left and lower right corners of rectangle" << endl;
+    cout << "1. Specify upper left and lower right corners of rectangle"
+         << endl;
     cout << "2. Specify upper left corner and dimensions of rectangle" << endl;
     cout << "3. Specify extent from center of rectangle" << endl;
 
-    getInputVale(commandChoice, "Enter int for rectangle specification method: ");
-    while (commandChoice > 3 || commandChoice < 1)
+    getInputVale(commandChoice,
+                 "Enter int for rectangle specification method: ");
+    while (!(isValidInput))
     {
-        cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~3" << endl;
-        getInputVale(commandChoice, "Try again - Enter int for rectangle specification method: ");
-    }
-
-    // Get information of rectangle
-    if (commandChoice == 1)
-    {
-        getInputVale(rowIdx, colIdx, "Enter upper left corner row and column: ");
-        while (rowIdx < 0 || colIdx < 0 || 
-                    rowIdx > Image.getHeight() || colIdx > Image.getWidth())
+        // Get information of rectangle
+        if (commandChoice == CHOICE_OF_SPECIFY_UPPER_LEFT_LOWER_RIGHT_CORNERS)
         {
-            cout << "Input value " << rowIdx << " " << colIdx << " is out of valid range.Try again " << endl;
-            getInputVale(rowIdx, colIdx, "Enter upper left corner row and column: ");
+            isValidInput = true;
+            getInputVale(rowIdx, colIdx,
+                         "Enter upper left corner row and column: ");
+            while (rowIdx < 0 || colIdx < 0 ||
+                   rowIdx >= Image.getHeight() || colIdx >= Image.getWidth())
+            {
+                cout << "Input value " << rowIdx << " " << colIdx
+                     << " is out of valid range.Try again " << endl;
+                getInputVale(rowIdx, colIdx,
+                             "Enter upper left corner row and column: ");
+            }
+
+            rowUpperLeft = rowIdx;
+            colUpperLeft = colIdx;
+
+            getInputVale(rowIdx, colIdx,
+                         "Enter lower left corner row and column: ");
+            while (rowIdx < 0 || colIdx < 0 ||
+                   rowIdx >= Image.getHeight() || colIdx >= Image.getWidth())
+            {
+                cout << "Input value " << rowIdx << " " << colIdx
+                     << " is out of valid range.Try again " << endl;
+                getInputVale(rowIdx, colIdx,
+                             "Enter lower left corner row and column: ");
+            }
+
+            rowLowerRight = rowIdx;
+            colLowerRight = colIdx;
+
+            // Check whether two input points can create rectangle or not.
+            if (rowUpperLeft > rowLowerRight || colUpperLeft > colLowerRight)
+                {
+                    cout << "Error. Input points can't create rectangle" 
+                        << endl;
+                    return;
+                }
         }
-
-        rowUpperLeft = rowIdx;
-        colUpperLeft = colIdx;
-
-        getInputVale(rowIdx, colIdx, "Enter lower left corner row and column: ");
-        while (rowIdx < 0 || colIdx < 0 ||
-               rowIdx > Image.getHeight() || colIdx > Image.getWidth())
+        else if (commandChoice == CHOICE_OF_SPECIFY_UP_LEFT_CORNER_DIMENSIONS)
         {
-            cout << "Input value " << rowIdx << " " << colIdx << " is out of valid range.Try again " << endl;
-            getInputVale(rowIdx, colIdx, "Enter lower left corner row and column: ");
-        }
+            isValidInput = true;
+            getInputVale(rowIdx, colIdx,
+                         "Enter upper left corner row and column: ");
+            while (rowIdx < 0 || colIdx < 0 ||
+                   rowIdx >= Image.getHeight() || colIdx >= Image.getWidth())
+            {
+                cout << "Input value " << rowIdx << " " << colIdx
+                     << " is out of valid range.Try again " << endl;
+                getInputVale(rowIdx, colIdx,
+                             "Enter upper left corner row and column: ");
+            }
 
-        rowLowerRight = rowIdx;
-        colLowerRight = colIdx;
-    }
-    else if (commandChoice == 2)
-    {
-        getInputVale(rowIdx, colIdx, "Enter upper left corner row and column: ");
-        while (rowIdx < 0 || colIdx < 0 ||
-               rowIdx > Image.getHeight() || colIdx > Image.getWidth())
-        {
-            cout << "Input value " << rowIdx << " " << colIdx << " is out of valid range.Try again " << endl;
-            getInputVale(rowIdx, colIdx, "Enter upper left corner row and column: ");
-        }
-
-        getInputVale(nRow, "Enter int for number of rows: ");
-        while (nRow < 0 || nRow > Image.getHeight())
-        {
-            cout << "Input value " << nRow << " is out of valid range. Try again" << endl;
             getInputVale(nRow, "Enter int for number of rows: ");
-        }
+            while (nRow < 1 || nRow > Image.getHeight())
+            {
+                cout << "Input value " << nRow
+                     << " is out of valid range. Try again" << endl;
+                getInputVale(nRow, "Enter int for number of rows: ");
+            }
 
-        getInputVale(nCol, "Enter int for number of columns: ");
-        while (nCol < 0 || nCol > Image.getHeight())
-        {
-            cout << "Input value " << nCol << " is out of valid range. Try again" << endl;
             getInputVale(nCol, "Enter int for number of columns: ");
-        }
+            while (nCol < 1 || nCol > Image.getHeight())
+            {
+                cout << "Input value " << nCol
+                     << " is out of valid range. Try again" << endl;
+                getInputVale(nCol, "Enter int for number of columns: ");
+            }
 
-        rowUpperLeft = rowIdx;
-        colUpperLeft = colIdx;
-        rowLowerRight = rowIdx + nRow;
-        colLowerRight = colIdx + nCol;
-    }
-    else
-    {
-        getInputVale(rowIdx, colIdx, "Enter rectangle center row and column: ");
-        while (rowIdx < 0 || colIdx < 0 ||
-               rowIdx > Image.getHeight() || colIdx > Image.getWidth())
-        {
-            cout << "Input value " << rowIdx << " " << colIdx << " is out of valid range.Try again " << endl;
-            getInputVale(rowIdx, colIdx, "Enter rectangle center row and column: ");
+            rowUpperLeft = rowIdx;
+            colUpperLeft = colIdx;
+            rowLowerRight = rowIdx + nRow;
+            colLowerRight = colIdx + nCol;
         }
-
-        getInputVale(nRow, "Enter int for half number of rows: ");
-        while (nRow < 0 || nRow > Image.getHeight())
+        else if (commandChoice == CHOICE_OF_SPECIFY_SPECIFY_EXTENT_FROM_CENTER)
         {
-            cout << "Input value " << nRow << " is out of valid range. Try again" << endl;
+            isValidInput = true;
+            getInputVale(rowIdx, colIdx,
+                         "Enter rectangle center row and column: ");
+            while (rowIdx < 0 || colIdx < 0 ||
+                   rowIdx >= Image.getHeight() || colIdx >= Image.getWidth())
+            {
+                cout << "Input value " << rowIdx << " "
+                     << colIdx << " is out of valid range.Try again " << endl;
+                getInputVale(rowIdx, colIdx,
+                             "Enter rectangle center row and column: ");
+            }
+
             getInputVale(nRow, "Enter int for half number of rows: ");
-        }
+            while (nRow < 1 || nRow > Image.getHeight())
+            {
+                cout << "Input value " << nRow
+                     << " is out of valid range. Try again" << endl;
+                getInputVale(nRow, "Enter int for half number of rows: ");
+            }
 
-        getInputVale(nCol, "Enter int for half number of columns: ");
-        while (nCol < 0 || nCol > Image.getWidth())
-        {
-            cout << "Input value " << nCol << " is out of valid range. Try again" << endl;
             getInputVale(nCol, "Enter int for half number of columns: ");
-        }
+            while (nCol < 1 || nCol > Image.getWidth())
+            {
+                cout << "Input value " << nCol
+                     << " is out of valid range. Try again" << endl;
+                getInputVale(nCol, "Enter int for half number of columns: ");
+            }
 
-        rowUpperLeft = rowIdx - nRow;
-        colUpperLeft = colIdx - nCol;
-        rowLowerRight = rowIdx + nRow;
-        colLowerRight = colIdx + nCol;
+            rowUpperLeft = rowIdx - nRow;
+            colUpperLeft = colIdx - nCol;
+            rowLowerRight = rowIdx + nRow;
+            colLowerRight = colIdx + nCol;
+        }
+        else
+        {
+            cout << "Input value " << commandChoice
+                 << " is out of valid range. Choose from menu" << endl;
+            getInputVale(commandChoice, "Try again - \
+Enter int for rectangle specification method: ");
+        }
     }
 
-    if (rowLowerRight > Image.getHeight() || colLowerRight > Image.getWidth())
+    // Check the size of rectangle
+    if (rowLowerRight >= Image.getHeight() ||
+        colLowerRight >= Image.getWidth() ||
+        rowUpperLeft < 0 ||
+        colUpperLeft < 0)
     {
-        cout << "Error. The size of rectangle is bigger than original Image." << endl;
+        cout << "Error. The size of rectangle is bigger than original Image."
+             << endl;
         cout << "Nothing to be done." << endl;
         return;
     }
@@ -152,38 +183,70 @@ void annotateImageRectangle(PPMImageClass &Image)
     cout << "5. White" << endl;
 
     getInputVale(commandChoice, "Enter int for rectangle color: ");
-    while (commandChoice > 5 || commandChoice < 1)
+    isValidInput = false;
+    while (!(isValidInput))
     {
-        cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~5" << endl;
-        getInputVale(commandChoice, "Try again - Enter int for rectangle color: ");
+        if (commandChoice == CHOICE_OF_RED)
+        {
+            isValidInput = true;
+            rectangleColor.setToRed(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_GREEN)
+        {
+            isValidInput = true;
+            rectangleColor.setToGreen(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_BLUE)
+        {
+            isValidInput = true;
+            rectangleColor.setToBlue(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_BLACK)
+        {
+            isValidInput = true;
+            rectangleColor.setToBlack(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_WHITE)
+        {
+            isValidInput = true;
+            rectangleColor.setToWhite(Image.getMaxColorValue());
+        }
+        else
+        {
+            cout << "Input value " << commandChoice
+                << " is out of valid range. Choose from menu" << endl;
+            getInputVale(commandChoice, "Try again - \
+ Enter int for rectangle color: ");
+        }
     }
 
-    if (commandChoice == 1)
-        rectangleColor.setToRed(Image.getMaxColorValue());
-    else if (commandChoice == 2)
-        rectangleColor.setToGreen(Image.getMaxColorValue());
-    else if (commandChoice == 3)
-        rectangleColor.setToBlue(Image.getMaxColorValue());
-    else if (commandChoice == 4)
-        rectangleColor.setToBlack(Image.getMaxColorValue());
-    else if (commandChoice == 5)
-        rectangleColor.setToWhite(Image.getMaxColorValue());
 
     // Get choice whether fill in or not.
     cout << "1. no" << endl;
     cout << "2. Yes" << endl;
 
     getInputVale(commandChoice, "Enter int for rectangle fill option: ");
-    while (commandChoice > 2 || commandChoice < 1)
+    isValidInput = false;
+    while (!(isValidInput))
     {
-        cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~2" << endl;
-        getInputVale(commandChoice, "Try again - Enter int for rectangle fill option: ");
+        if (commandChoice == CHOICE_OF_NOT_FILL_IN)
+        {
+            doFillIn = false;
+            isValidInput = true;
+        }
+        else if (commandChoice == CHOICE_OF_FILL_IN)
+        {
+            doFillIn = true;
+            isValidInput = true;
+        }
+        else
+        {
+            cout << "Input value " << commandChoice
+                << " is out of valid range. Choose from 1~2" << endl;
+            getInputVale(commandChoice, "Try again -\
+    Enter int for rectangle fill option: ");
+        }
     }
-
-    if (commandChoice == 1)
-        doFillIn = false;
-    else
-        doFillIn = true;
 
     // do annotation
     if (doFillIn)
@@ -205,13 +268,13 @@ void annotateImageRectangle(PPMImageClass &Image)
         }
 
         // left line
-        for (int i = rowUpperLeft + 1; i < rowLowerRight; i++)
+        for (int i = rowUpperLeft + 1; i <= rowLowerRight; i++)
         {
             Image.setColorAtLocation(i, colUpperLeft, rectangleColor);
         }
 
         // right line
-        for (int i = rowUpperLeft + 1; i < rowLowerRight; i++)
+        for (int i = rowUpperLeft + 1; i <= rowLowerRight; i++)
         {
             Image.setColorAtLocation(i, colLowerRight, rectangleColor);
         }
@@ -231,12 +294,13 @@ void annotateImagePattern(PPMImageClass &Image)
     ColorClass patternColor;
     string path;
     ifstream inFile;
-    int heightPattern;  
+    int heightPattern;
     int widthPattern;
     int value;
     int rowIdx;
     int colIdx;
     int commandChoice;
+    bool isValidInput = false;
 
     getInputVale(path, "Enter string for file name containing pattern: ");
 
@@ -255,13 +319,14 @@ void annotateImagePattern(PPMImageClass &Image)
     // Read height of image.
     if (!(readValue(widthPattern, inFile) && readValue(heightPattern, inFile)))
     {
-        cout << "Program can't find size of image! Check format of file." << endl;
+        cout << "Program can't find size of image! Check format of file."
+             << endl;
         inFile.close();
         return;
-    } 
+    }
 
     // Check size of pattern
-    if (heightPattern > Image.getHeight() || widthPattern > Image.getWidth())
+    if (heightPattern >= Image.getHeight() || widthPattern >= Image.getWidth())
     {
         cout << "Error. Size of pattern is bigger than original image." << endl;
         inFile.close();
@@ -291,38 +356,62 @@ void annotateImagePattern(PPMImageClass &Image)
     }
 
     // Get annotated position
-    getInputVale(rowIdx, colIdx, "Enter upper left corner to pattern row and column: ");
+    getInputVale(rowIdx, colIdx,
+                 "Enter upper left corner to pattern row and column: ");
     while (rowIdx < 0 || colIdx < 0 ||
-           rowIdx + heightPattern > Image.getHeight() || colIdx + widthPattern > Image.getWidth())
+           rowIdx + heightPattern >= Image.getHeight() ||
+           colIdx + widthPattern >= Image.getWidth())
     {
-        cout << "Input value " << rowIdx << " " << colIdx << " is out of valid range.Try again " << endl;
-        getInputVale(rowIdx, colIdx, "Enter upper left corner to insert image row and column: ");
+        cout << "Input value " << rowIdx << " " << colIdx
+             << " is out of valid range.Try again " << endl;
+        getInputVale(rowIdx, colIdx,
+                     "Enter upper left corner to insert image row and column: ");
     }
 
-    // Get annotated color
+    // Get color of pattern
     cout << "1. Red" << endl;
     cout << "2. Green" << endl;
     cout << "3. Blue" << endl;
     cout << "4. Black" << endl;
     cout << "5. White" << endl;
 
-    getInputVale(commandChoice, "Enter int for transparecy color: ");
-    while (commandChoice > 5 || commandChoice < 1)
+    getInputVale(commandChoice, "Enter int for pattern color: ");
+    isValidInput = false;
+    while (!(isValidInput))
     {
-        cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~5" << endl;
-        getInputVale(commandChoice, "Try again - Enter int for transparecy color: ");
+        if (commandChoice == CHOICE_OF_RED)
+        {
+            isValidInput = true;
+            patternColor.setToRed(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_GREEN)
+        {
+            isValidInput = true;
+            patternColor.setToGreen(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_BLUE)
+        {
+            isValidInput = true;
+            patternColor.setToBlue(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_BLACK)
+        {
+            isValidInput = true;
+            patternColor.setToBlack(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_WHITE)
+        {
+            isValidInput = true;
+            patternColor.setToWhite(Image.getMaxColorValue());
+        }
+        else
+        {
+            cout << "Input value " << commandChoice
+                 << " is out of valid range. Choose from menu" << endl;
+            getInputVale(commandChoice, "Try again - \
+Enter int for pattern color: ");
+        }
     }
-
-    if (commandChoice == 1)
-        patternColor.setToRed(Image.getMaxColorValue());
-    else if (commandChoice == 2)
-        patternColor.setToGreen(Image.getMaxColorValue());
-    else if (commandChoice == 3)
-        patternColor.setToBlue(Image.getMaxColorValue());
-    else if (commandChoice == 4)
-        patternColor.setToBlack(Image.getMaxColorValue());
-    else if (commandChoice == 5)
-        patternColor.setToWhite(Image.getMaxColorValue());
 
     // Execute annotate pattern
     for (int i = 0; i < heightPattern; i++)
@@ -346,32 +435,38 @@ void insertAnotherImage(PPMImageClass &Image)
     ColorClass transparancyColor;
     ColorClass currentColor;
     string path;
-
     int rowIdx;
     int colIdx;
-
     int commandChoice;
+    bool isValidInput = false;
 
     // read annotate Image from ppm file
     getInputVale(path, "Enter string for PPM file name to output:");
     if (!(anotherImage.readPPMFile(path)))
     {
-        getInputVale(commandChoice, "Try again - Enter string for PPM file name to output: ");
+        getInputVale(commandChoice,
+                     "Try again - Enter string for PPM file name to output: ");
     }
 
     // get annotated position
-    getInputVale(rowIdx, colIdx, "Enter upper left corner to insert image row and column: ");
+    getInputVale(rowIdx, colIdx,
+                 "Enter upper left corner to insert image row and column: ");
     while (rowIdx < 0 || colIdx < 0 ||
-           rowIdx > Image.getHeight() || colIdx > Image.getWidth())
+           rowIdx >= Image.getHeight() || colIdx >= Image.getWidth())
     {
-        cout << "Input value " << rowIdx << " " << colIdx << " is out of valid range.Try again " << endl;
-        getInputVale(rowIdx, colIdx, "Enter upper left corner to insert image row and column: ");
+        cout << "Input value " << rowIdx << " " << colIdx
+             << " is out of valid range.Try again " << endl;
+        getInputVale(rowIdx, colIdx,
+                     "Enter upper left corner to insert image row and column: ");
     }
 
     // check size of another image and position
-    if (rowIdx + anotherImage.getHeight() > Image.getHeight() || colIdx + anotherImage.getWidth() > Image.getWidth())
+    if (rowIdx + anotherImage.getHeight() >= Image.getHeight() ||
+        colIdx + anotherImage.getWidth() >= Image.getWidth())
     {
-        cout << "Error. Inserting image is too big to insert at specified position." << endl;
+        cout << "Error. Inserting image is too big to insert\
+ at specified position."
+             << endl;
         return;
     }
 
@@ -383,22 +478,42 @@ void insertAnotherImage(PPMImageClass &Image)
     cout << "5. White" << endl;
 
     getInputVale(commandChoice, "Enter int for transparecy color: ");
-    while (commandChoice > 5 || commandChoice < 1)
+    isValidInput = false;
+    while (!(isValidInput))
     {
-        cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~5" << endl;
-        getInputVale(commandChoice, "Try again - Enter int for transparecy color: ");
+        if (commandChoice == CHOICE_OF_RED)
+        {
+            isValidInput = true;
+            transparancyColor.setToRed(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_GREEN)
+        {
+            isValidInput = true;
+            transparancyColor.setToGreen(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_BLUE)
+        {
+            isValidInput = true;
+            transparancyColor.setToBlue(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_BLACK)
+        {
+            isValidInput = true;
+            transparancyColor.setToBlack(Image.getMaxColorValue());
+        }
+        else if (commandChoice == CHOICE_OF_WHITE)
+        {
+            isValidInput = true;
+            transparancyColor.setToWhite(Image.getMaxColorValue());
+        }
+        else
+        {
+            cout << "Input value " << commandChoice
+                 << " is out of valid range. Choose from menu" << endl;
+            getInputVale(commandChoice, "Try again - \
+Enter int for transparecy color: ");
+        }
     }
-
-    if (commandChoice == 1)
-        transparancyColor.setToRed(Image.getMaxColorValue());
-    else if (commandChoice == 2)
-        transparancyColor.setToGreen(Image.getMaxColorValue());
-    else if (commandChoice == 3)
-        transparancyColor.setToBlue(Image.getMaxColorValue());
-    else if (commandChoice == 4)
-        transparancyColor.setToBlack(Image.getMaxColorValue());
-    else if (commandChoice == 5)
-        transparancyColor.setToWhite(Image.getMaxColorValue());
 
     // Do insert another image
     for (int i = 0; i < anotherImage.getHeight(); i++)
@@ -407,18 +522,20 @@ void insertAnotherImage(PPMImageClass &Image)
         {
             //check whether current pixel is transparancy or not
             anotherImage.getColorAtLocation(i, j, currentColor);
-            if (currentColor.getRedValue() == transparancyColor.getRedValue() ||
-                currentColor.getBlueValue() == transparancyColor.getBlueValue() ||
-                currentColor.getGreenValue() == transparancyColor.getGreenValue())
+            if (currentColor.getRedValue() ==
+                    transparancyColor.getRedValue() ||
+                currentColor.getBlueValue() ==
+                    transparancyColor.getBlueValue() ||
+                currentColor.getGreenValue() ==
+                    transparancyColor.getGreenValue())
             {
-                continue;
             }
-            else{
+            else
+            {
                 Image.setColorAtLocation(i + rowIdx, j + colIdx, currentColor);
             }
         }
     }
-
     return;
 }
 

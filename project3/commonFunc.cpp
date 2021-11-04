@@ -1,5 +1,11 @@
 #include "commonFunc.h"
 
+//program header
+//Name: Ryutaro Hashimoto
+//Date: November 4, 2021
+//purpose: This program will define common functions to read value from command
+//prompt or file.
+
 bool readValue(string &value, ifstream &inFile)
 {
     bool validInputFound = false;

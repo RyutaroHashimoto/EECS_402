@@ -12,9 +12,8 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define PPMImageClass class. 
-
+//Date: November 4, 2021
+//purpose: This program will prototyped "PPMImageClass" class and its method.
 class PPMImageClass
 {
 public:
@@ -45,16 +44,8 @@ public:
     // get max color value of image
     int getMaxColorValue();
 
-    // void PrintImage()
-    // {
-    //     ColorImage.printImage();
-    // }
-
-
-private :
+private:
     ColorImageClass ColorImage;
-    int height;
-    int width;
     int maxColorValue;
 };
 

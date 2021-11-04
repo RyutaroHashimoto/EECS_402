@@ -1,7 +1,9 @@
-//library
-#include <iostream>
 #include "ColorClass.h"
-using namespace std;
+
+//program header
+//Name: Ryutaro Hashimoto
+//Date: November 4, 2021
+//purpose: This program will define "ColorClass" class and its method.
 
 ColorClass::ColorClass()
 {
@@ -112,10 +114,4 @@ int ColorClass::getGreenValue()
 int ColorClass::getBlueValue()
 {
     return blueValue;
-}
-
-void ColorClass::printComponentValues()
-{
-    cout << "R: " << redValue << " G: " << greenValue << " B: "
-         << blueValue;
 }

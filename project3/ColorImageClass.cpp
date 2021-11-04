@@ -1,14 +1,9 @@
-//library
-#include <iostream>
 #include "ColorImageClass.h"
-using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define color class. Colors are described by RGB
-//values.
-
+//Date: November 4, 2021
+//purpose: This program will define "ColorImageClass" class and its method.
 
 ColorImageClass::ColorImageClass()
 {
@@ -21,7 +16,7 @@ ColorImageClass::ColorImageClass()
     defaultColor.setToBlack();
 
     // dynamic allocate row vectors
-    imagePixelColor = new ColorClass*[height];
+    imagePixelColor = new ColorClass *[height];
 
     // dynamic allocate each column values
     for (int rowIdx = 0; rowIdx < height; rowIdx++)
@@ -97,9 +92,10 @@ ColorImageClass::ColorImageClass(int inHeight, int inWidth, int maxColorValue)
     }
 }
 
-bool ColorImageClass::setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor)
+bool ColorImageClass::setColorAtLocation(int rowIdx, int colIdx,
+                                         ColorClass &inColor)
 {
-    if (height < rowIdx || width < colIdx)
+    if (height <= rowIdx || width <= colIdx)
     {
         // input location is out of range
         return false;
@@ -109,9 +105,10 @@ bool ColorImageClass::setColorAtLocation(int rowIdx, int colIdx, ColorClass &inC
     return true;
 }
 
-bool ColorImageClass::getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor)
+bool ColorImageClass::getColorAtLocation(int rowIdx, int colIdx,
+                                         ColorClass &outColor)
 {
-    if (height < rowIdx || width < colIdx)
+    if (height <= rowIdx || width <= colIdx)
     {
         // input location is out of range
         return false;
@@ -121,17 +118,22 @@ bool ColorImageClass::getColorAtLocation(int rowIdx, int colIdx, ColorClass &out
     return true;
 }
 
-void ColorImageClass::printImage()
+void ColorImageClass::setHeight(int inHeight)
 {
-    for (int i = 0; i < height; i++)
-    {
-        for (int j = 0; j < width - 1; j++)
-        {
-            imagePixelColor[i][j].printComponentValues();
-            cout << "--";
-        }
-        // last pixel
-        imagePixelColor[i][width - 1].printComponentValues();
-        cout << endl;
-    }
+    height = inHeight;
+}
+
+void ColorImageClass::setWidth(int inWidth)
+{
+    width = inWidth;
+}
+
+int ColorImageClass::getHeight()
+{
+    return height;
+}
+
+int ColorImageClass::getWidth()
+{
+    return width;
 }

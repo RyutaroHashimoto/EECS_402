@@ -1,27 +1,25 @@
-//library
-#include <iostream>
-#include <fstream>
-#include <string>
 #include "PPMImageClass.h"
-using namespace std;
+
+//program header
+//Name: Ryutaro Hashimoto
+//Date: November 4, 2021
+//purpose: This program will define "PPMImageClass" class and its method.
 
 PPMImageClass::PPMImageClass()
 {
-    // default image size is defined as global variables
-    height = DEFAULT_IMAGE_HEIGHT;
-    width = DEFAULT_IMAGE_WIDTH;
+    // default maximum color value is defined as global variables
     maxColorValue = MAXIMUM_COLOR_VALUE;
 
-    ColorImage = ColorImageClass(height, width);
+    ColorImage = ColorImageClass();
 }
 
 PPMImageClass::PPMImageClass(int inHeight, int inWidth)
 {
-    height = inHeight;
-    width = inWidth;
+    ColorImage.setHeight(inHeight);
+    ColorImage.setHeight(inWidth);
     maxColorValue = MAXIMUM_COLOR_VALUE;
 
-    ColorImage = ColorImageClass(height, width);
+    ColorImage = ColorImageClass(ColorImage.getHeight(), ColorImage.getWidth());
 }
 
 bool PPMImageClass::readPPMFile(const string path)
@@ -31,6 +29,8 @@ bool PPMImageClass::readPPMFile(const string path)
     int red;
     int green;
     int blue;
+    int inHeight;
+    int inWeight;
 
     inFile.open(path.c_str());
 
@@ -58,15 +58,17 @@ bool PPMImageClass::readPPMFile(const string path)
     }
     else
     {
-        cout << "Program can't find Magic number! Check format of file." << endl;
+        cout << "Program can't find Magic number! Check format of file."
+             << endl;
         inFile.close();
         return false;
     }
 
     // Read height of image.
-    if (!(readValue(width, inFile) && readValue(height, inFile)))
+    if (!(readValue(inWeight, inFile) && readValue(inHeight, inFile)))
     {
-        cout << "Program can't find size of image! Check format of file." << endl;
+        cout << "Program can't find size of image! Check format of file."
+             << endl;
         inFile.close();
         return false;
     }
@@ -75,32 +77,35 @@ bool PPMImageClass::readPPMFile(const string path)
     if (!(readValue(maxColorValue, inFile)))
     {
         {
-            cout << "Program can't find maximum value in the color descriptions! Check format of file." << endl;
+            cout << "Program can't find maximum value in the color \
+descriptions! Check format of file."
+                 << endl;
             inFile.close();
             return false;
         }
     }
 
     // read contents of image
-    ColorImage = ColorImageClass(height, width);
+    ColorImage = ColorImageClass(inHeight, inWeight);
     ColorClass ColorValue;
 
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < ColorImage.getHeight(); i++)
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < ColorImage.getWidth(); j++)
         {
-            if (!(readValue(red, inFile) && readValue(green, inFile) && 
-                readValue(blue, inFile)))
+            if (!(readValue(red, inFile) && readValue(green, inFile) &&
+                  readValue(blue, inFile)))
             {
                 inFile.close();
                 return false;
             }
 
             if (!(MINIMUM_COLOR_VALUE <= red && red <= maxColorValue &&
-                    MINIMUM_COLOR_VALUE <= green && green <= maxColorValue &&
-                    MINIMUM_COLOR_VALUE <= blue && blue <= maxColorValue))
+                  MINIMUM_COLOR_VALUE <= green && green <= maxColorValue &&
+                  MINIMUM_COLOR_VALUE <= blue && blue <= maxColorValue))
             {
-                cout << "At least, one of RGB value is out of valid range." << endl;
+                cout << "At least, one of RGB value is out of valid range."
+                     << endl;
                 cout << "Check the input value." << endl;
                 inFile.close();
                 return false;
@@ -118,6 +123,7 @@ bool PPMImageClass::writePPMFile(const string path)
 {
     ColorClass currentColor;
     ofstream outFile;
+
     outFile.open(path.c_str());
     if (outFile.fail())
     {
@@ -129,19 +135,20 @@ bool PPMImageClass::writePPMFile(const string path)
     }
 
     outFile << PPM_IMAGE_MAGIC_NUMBER << endl;
-    outFile << width <<  " " << height << endl;
+    outFile << ColorImage.getWidth() << " " << ColorImage.getHeight() << endl;
     outFile << maxColorValue << endl;
 
-    for (int i=0; i < height; i++)
+    for (int i = 0; i < ColorImage.getHeight(); i++)
     {
-        for(int j=0; j < width-1; j++)
+        for (int j = 0; j < ColorImage.getWidth() - 1; j++)
         {
             ColorImage.getColorAtLocation(i, j, currentColor);
             outFile << currentColor.getRedValue() << " ";
             outFile << currentColor.getGreenValue() << " ";
             outFile << currentColor.getBlueValue() << " ";
         }
-        ColorImage.getColorAtLocation(i, width - 1, currentColor);
+        ColorImage.getColorAtLocation(i, ColorImage.getWidth() - 1,
+                                      currentColor);
         outFile << currentColor.getRedValue() << " ";
         outFile << currentColor.getGreenValue() << " ";
         outFile << currentColor.getBlueValue() << endl;
@@ -154,12 +161,12 @@ bool PPMImageClass::writePPMFile(const string path)
 
 int PPMImageClass::getHeight()
 {
-    return height;
+    return ColorImage.getHeight();
 }
 
 int PPMImageClass::getWidth()
 {
-    return width;
+    return ColorImage.getWidth();
 }
 
 int PPMImageClass::getMaxColorValue()
@@ -167,12 +174,14 @@ int PPMImageClass::getMaxColorValue()
     return maxColorValue;
 }
 
-void PPMImageClass::getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor)
+void PPMImageClass::getColorAtLocation(int rowIdx, int colIdx,
+                                       ColorClass &outColor)
 {
     ColorImage.getColorAtLocation(rowIdx, colIdx, outColor);
 }
 
-void PPMImageClass::setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor)
+void PPMImageClass::setColorAtLocation(int rowIdx, int colIdx,
+                                       ColorClass &inColor)
 {
     ColorImage.setColorAtLocation(rowIdx, colIdx, inColor);
 }

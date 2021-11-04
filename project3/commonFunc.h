@@ -1,5 +1,6 @@
 #ifndef _COMMONFUNC_H_
 #define _COMMONFUNC_H_
+
 //library
 #include <iostream>
 #include <fstream>
@@ -8,9 +9,9 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define color class. Colors are described by RGB
-//values.
+//Date: November 4, 2021
+//purpose: This program will prototypedcommon functions to read value from 
+//command prompt or file.
 
 // get and check data in input file stream (int)
 bool readValue(int &value, ifstream &inFile);

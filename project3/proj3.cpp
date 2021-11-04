@@ -10,9 +10,10 @@ using namespace std;
 //program header
 //Name: Ryutaro Hashimoto
 //Date: October 12, 2021
-//purpose: This program will define color image class. Image is composed of a
-//collection of pixels. Colors are described by RGB values.
-
+//purpose: This program will read/write PPM format image and modify it.
+//If base image can't be read correctly, program will exit with error 1.
+//Then, program will continue until users input the exit command, 
+//then program will exit with .0  
 
 int main()
 {
@@ -27,7 +28,7 @@ int main()
         return 1;
     }
 
-    // read command and execute
+    // get command and execute
     while (isProgramContinue)
     {
         cout << "1. Annotate image with rectangle" << endl;
@@ -37,38 +38,36 @@ int main()
         cout << "5. Exit the program" << endl;
 
         getInputVale(commandChoice, "Enter int for main menu choice: ");
-        while (commandChoice > 5 || commandChoice < 1)
-        {
-            cout << "Input value " << commandChoice << " is out of valid range. Choose from 1~5" << endl;
-            getInputVale(commandChoice, "Try again - Enter int for main menu choice: ");
-        }
 
-        if (commandChoice == 1)
+        if (commandChoice == CHOICE_OF_ANNOTATE_IMAGE_WITH_RECTANGLE)
         {
             annotateImageRectangle(Image);
         }
-        else if (commandChoice == 2)
+        else if (commandChoice == CHOICE_OF_ANNOTATE_IMAGE_WITH_PATTERN)
         {
             annotateImagePattern(Image);
         }
-        else if (commandChoice == 3)
+        else if (commandChoice == CHOICE_OF_INSERT_ANOTHER)
         {
             insertAnotherImage(Image);
         }
-        else if (commandChoice == 4)
+        else if (commandChoice == CHOICE_OF_WRITE_OUT_CURRENT_IMAGE)
         {
             outputPPMImage(Image);
         }
-        else if (commandChoice == 5)
+        else if (commandChoice == CHOICE_OF_EXIT_THE_PROGRAM)
         {
             isProgramContinue = false;
         }
+        else{
+            cout << "Input value " 
+                << commandChoice 
+                << " is out of valid range. Choose from menu" << endl;
+            getInputVale(commandChoice, 
+                "Try again - Enter int for main menu choice: ");
+        }
     }
     
-
-
-
-
     cout << "Thank you for using this program " << endl;
     return 0;
 }

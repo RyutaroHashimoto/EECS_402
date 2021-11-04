@@ -1,5 +1,6 @@
 #ifndef _MODIFYFUNCTION_H_
 #define _MODIFYFUNCTION_H_
+
 //library
 #include <iostream>
 #include "constants.h"
@@ -9,9 +10,8 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define color class. Colors are described by RGB
-//values.
+//Date: November 4, 2021
+//purpose: This program will prototyped functions to handle ppm image.
 
 // function to load image data from PPM file
 bool loadPPMImage(PPMImageClass &Image);

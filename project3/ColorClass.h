@@ -8,11 +8,9 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define color class. Colors are described by RGB 
-//values.
+//Date: November 4, 2021
+//purpose: This program will prototyped "ColorClass" class and its method.
 
-//global Class
 class ColorClass
 {
 public:
@@ -66,9 +64,6 @@ public:
 
     // get value of blue
     int getBlueValue();
-
-    // print each of current color values of class
-    void printComponentValues();
 
 private:
     // RGB color value

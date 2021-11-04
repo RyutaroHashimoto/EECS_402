@@ -9,20 +9,19 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: October 12, 2021
-//purpose: This program will define color class. Colors are described by RGB
-//values.
+//Date: November 4, 2021
+//purpose: This program will prototyped "ColorImageClass" class and its method.
 
 class ColorImageClass
 {
 public:
-    // Initiialy set black image
+    // Initiialy, set black image
     ColorImageClass();
 
-    // Initiialy set black image with specified size
+    // Initiialy, set black image with specified size
     ColorImageClass(int inHeight, int inWidth);
 
-    // Initiialy set black image with specified size and maximum color value
+    // Initiialy, set black image with specified size and maximum color value
     ColorImageClass(int inHeight, int inWidth, int maxColorValue);
 
     //  set the pixel at the location specified to the color provided
@@ -31,8 +30,17 @@ public:
     // get color at provided row/col index location if valid
     bool getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor);
 
-    // print contents of the image
-    void printImage();
+    // Set height of image
+    void setHeight(int inHeight);
+
+    // Set width of image
+    void setWidth(int inWidth);
+
+    // Get height of image
+    int getHeight();
+
+    // Get width of image
+    int getWidth();
 
 private:
     // color image pixel value
