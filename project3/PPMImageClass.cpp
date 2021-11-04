@@ -89,9 +89,9 @@ descriptions! Check format of file."
     ColorImage = ColorImageClass(inHeight, inWeight);
     ColorClass ColorValue;
 
-    for (int i = 0; i < ColorImage.getHeight(); i++)
+    for (int rIdx = 0; rIdx < ColorImage.getHeight(); rIdx++)
     {
-        for (int j = 0; j < ColorImage.getWidth(); j++)
+        for (int cIdx = 0; cIdx < ColorImage.getWidth(); cIdx++)
         {
             if (!(readValue(red, inFile) && readValue(green, inFile) &&
                   readValue(blue, inFile)))
@@ -112,7 +112,7 @@ descriptions! Check format of file."
             }
 
             ColorValue.setTo(red, green, blue);
-            ColorImage.setColorAtLocation(i, j, ColorValue);
+            ColorImage.setColorAtLocation(rIdx, cIdx, ColorValue);
         }
     }
     inFile.close();
@@ -138,16 +138,16 @@ bool PPMImageClass::writePPMFile(const string path)
     outFile << ColorImage.getWidth() << " " << ColorImage.getHeight() << endl;
     outFile << maxColorValue << endl;
 
-    for (int i = 0; i < ColorImage.getHeight(); i++)
+    for (int rIdx = 0; rIdx < ColorImage.getHeight(); rIdx++)
     {
-        for (int j = 0; j < ColorImage.getWidth() - 1; j++)
+        for (int cIdx = 0; cIdx < ColorImage.getWidth() - 1; cIdx++)
         {
-            ColorImage.getColorAtLocation(i, j, currentColor);
+            ColorImage.getColorAtLocation(rIdx, cIdx, currentColor);
             outFile << currentColor.getRedValue() << " ";
             outFile << currentColor.getGreenValue() << " ";
             outFile << currentColor.getBlueValue() << " ";
         }
-        ColorImage.getColorAtLocation(i, ColorImage.getWidth() - 1,
+        ColorImage.getColorAtLocation(rIdx, ColorImage.getWidth() - 1,
                                       currentColor);
         outFile << currentColor.getRedValue() << " ";
         outFile << currentColor.getGreenValue() << " ";

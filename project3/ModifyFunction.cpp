@@ -251,38 +251,38 @@ Enter int for rectangle specification method: ");
     // do annotation
     if (doFillIn)
     {
-        for (int i = rowUpperLeft; i <= rowLowerRight; i++)
+        for (int rIdx = rowUpperLeft; rIdx <= rowLowerRight; rIdx++)
         {
-            for (int j = colUpperLeft; j <= colLowerRight; j++)
+            for (int cIdx = colUpperLeft; cIdx <= colLowerRight; cIdx++)
             {
-                Image.setColorAtLocation(i, j, rectangleColor);
+                Image.setColorAtLocation(rIdx, cIdx, rectangleColor);
             }
         }
     }
     else
     {
         // top line
-        for (int j = colUpperLeft; j <= colLowerRight; j++)
+        for (int cIdx = colUpperLeft; cIdx <= colLowerRight; cIdx++)
         {
-            Image.setColorAtLocation(rowUpperLeft, j, rectangleColor);
+            Image.setColorAtLocation(rowUpperLeft, cIdx, rectangleColor);
         }
 
         // left line
-        for (int i = rowUpperLeft + 1; i <= rowLowerRight; i++)
+        for (int rIdx = rowUpperLeft + 1; rIdx <= rowLowerRight; rIdx++)
         {
-            Image.setColorAtLocation(i, colUpperLeft, rectangleColor);
+            Image.setColorAtLocation(rIdx, colUpperLeft, rectangleColor);
         }
 
         // right line
-        for (int i = rowUpperLeft + 1; i <= rowLowerRight; i++)
+        for (int rIdx = rowUpperLeft + 1; rIdx <= rowLowerRight; rIdx++)
         {
-            Image.setColorAtLocation(i, colLowerRight, rectangleColor);
+            Image.setColorAtLocation(rIdx, colLowerRight, rectangleColor);
         }
 
         // bottom line
-        for (int j = colUpperLeft; j <= colLowerRight; j++)
+        for (int cIdx = colUpperLeft; cIdx <= colLowerRight; cIdx++)
         {
-            Image.setColorAtLocation(rowLowerRight, j, rectangleColor);
+            Image.setColorAtLocation(rowLowerRight, cIdx, rectangleColor);
         }
     }
 
@@ -414,14 +414,14 @@ Enter int for pattern color: ");
     }
 
     // Execute annotate pattern
-    for (int i = 0; i < heightPattern; i++)
+    for (int rIdx = 0; rIdx < heightPattern; rIdx++)
     {
-        for (int j = 0; j < widthPattern; j++)
+        for (int cIdx = 0; cIdx < widthPattern; cIdx++)
         {
             //check whether current pixel is annotated or not
-            if (pattern[i][j] == 1)
+            if (pattern[rIdx][cIdx] == 1)
             {
-                Image.setColorAtLocation(i + rowIdx, j + colIdx, patternColor);
+                Image.setColorAtLocation(rIdx + rowIdx, cIdx + colIdx, patternColor);
             }
         }
     }
@@ -523,12 +523,12 @@ Enter int for transparecy color: ");
     }
 
     // Do insert another image
-    for (int i = 0; i < anotherImage.getHeight(); i++)
+    for (int rIdx = 0; rIdx < anotherImage.getHeight(); rIdx++)
     {
-        for (int j = 0; j < anotherImage.getWidth(); j++)
+        for (int cIdx = 0; cIdx < anotherImage.getWidth(); cIdx++)
         {
             //check whether current pixel is transparancy or not
-            anotherImage.getColorAtLocation(i, j, currentColor);
+            anotherImage.getColorAtLocation(rIdx, cIdx, currentColor);
             if (currentColor.getRedValue() ==
                     transparancyColor.getRedValue() ||
                 currentColor.getBlueValue() ==
@@ -539,7 +539,7 @@ Enter int for transparecy color: ");
             }
             else
             {
-                Image.setColorAtLocation(i + rowIdx, j + colIdx, currentColor);
+                Image.setColorAtLocation(rIdx + rowIdx, cIdx + colIdx, currentColor);
             }
         }
     }
