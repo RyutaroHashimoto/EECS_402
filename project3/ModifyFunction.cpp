@@ -326,7 +326,7 @@ void annotateImagePattern(PPMImageClass &Image)
     }
 
     // Check size of pattern
-    if (heightPattern >= Image.getHeight() || widthPattern >= Image.getWidth())
+    if (heightPattern > Image.getHeight() || widthPattern > Image.getWidth())
     {
         cout << "Error. Size of pattern is bigger than original image." << endl;
         inFile.close();
@@ -426,8 +426,15 @@ Enter int for pattern color: ");
         }
     }
 
+    // Clear dynamic allocate memory
+    for (int rInd = 0; rInd < heightPattern; rInd++)
+    {
+        delete[] pattern[rInd];
+    }
+    delete[] pattern;
+
     return;
-}
+    }
 
 void insertAnotherImage(PPMImageClass &Image)
 {
@@ -461,8 +468,8 @@ void insertAnotherImage(PPMImageClass &Image)
     }
 
     // check size of another image and position
-    if (rowIdx + anotherImage.getHeight() >= Image.getHeight() ||
-        colIdx + anotherImage.getWidth() >= Image.getWidth())
+    if (rowIdx + anotherImage.getHeight() > Image.getHeight() ||
+        colIdx + anotherImage.getWidth() > Image.getWidth())
     {
         cout << "Error. Inserting image is too big to insert\
  at specified position."
@@ -536,6 +543,7 @@ Enter int for transparecy color: ");
             }
         }
     }
+    anotherImage.ClearMemory();
     return;
 }
 

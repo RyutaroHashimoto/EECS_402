@@ -69,5 +69,6 @@ int main()
     }
     
     cout << "Thank you for using this program " << endl;
+    Image.ClearMemory();
     return 0;
 }
