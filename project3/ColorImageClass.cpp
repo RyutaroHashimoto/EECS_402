@@ -128,6 +128,39 @@ bool ColorImageClass::getColorAtLocation(int rowIdx, int colIdx,
     return true;
 }
 
+int ColorImageClass::getRed(int rowIdx, int colIdx)
+{
+    if (height <= rowIdx || width <= colIdx)
+    {
+        // input location is out of range
+        return false;
+    }
+
+    return imagePixelColor[rowIdx][colIdx].getRedValue();
+}
+
+int ColorImageClass::getGreen(int rowIdx, int colIdx)
+{
+    if (height <= rowIdx || width <= colIdx)
+    {
+        // input location is out of range
+        return false;
+    }
+
+    return imagePixelColor[rowIdx][colIdx].getGreenValue();
+}
+
+int ColorImageClass::getBlue(int rowIdx, int colIdx)
+{
+    if (height <= rowIdx || width <= colIdx)
+    {
+        // input location is out of range
+        return false;
+    }
+
+    return imagePixelColor[rowIdx][colIdx].getBlueValue();
+}
+
 void ColorImageClass::setHeight(int inHeight)
 {
     height = inHeight;

@@ -365,7 +365,7 @@ void annotateImagePattern(PPMImageClass &Image)
         cout << "Input value " << rowIdx << " " << colIdx
              << " is out of valid range.Try again " << endl;
         getInputVale(rowIdx, colIdx,
-                     "Enter upper left corner to insert image row and column: ");
+            "Enter upper left corner to insert image row and column: ");
     }
 
     // Get color of pattern
@@ -421,7 +421,9 @@ Enter int for pattern color: ");
             //check whether current pixel is annotated or not
             if (pattern[rIdx][cIdx] == 1)
             {
-                Image.setColorAtLocation(rIdx + rowIdx, cIdx + colIdx, patternColor);
+                Image.setColorAtLocation(
+                    rIdx + rowIdx, cIdx + colIdx, 
+                    patternColor);
             }
         }
     }
@@ -434,7 +436,7 @@ Enter int for pattern color: ");
     delete[] pattern;
 
     return;
-    }
+}
 
 void insertAnotherImage(PPMImageClass &Image)
 {
@@ -464,7 +466,7 @@ void insertAnotherImage(PPMImageClass &Image)
         cout << "Input value " << rowIdx << " " << colIdx
              << " is out of valid range.Try again " << endl;
         getInputVale(rowIdx, colIdx,
-                     "Enter upper left corner to insert image row and column: ");
+            "Enter upper left corner to insert image row and column: ");
     }
 
     // check size of another image and position
@@ -528,18 +530,20 @@ Enter int for transparecy color: ");
         for (int cIdx = 0; cIdx < anotherImage.getWidth(); cIdx++)
         {
             //check whether current pixel is transparancy or not
-            anotherImage.getColorAtLocation(rIdx, cIdx, currentColor);
-            if (currentColor.getRedValue() ==
+            if (anotherImage.getRed(rIdx, cIdx) ==
                     transparancyColor.getRedValue() ||
-                currentColor.getBlueValue() ==
+                anotherImage.getBlue(rIdx, cIdx) ==
                     transparancyColor.getBlueValue() ||
-                currentColor.getGreenValue() ==
+                anotherImage.getGreen(rIdx, cIdx) ==
                     transparancyColor.getGreenValue())
             {
             }
             else
             {
-                Image.setColorAtLocation(rIdx + rowIdx, cIdx + colIdx, currentColor);
+                anotherImage.getColorAtLocation(rIdx, cIdx, currentColor);
+                Image.setColorAtLocation(
+                    rIdx + rowIdx, cIdx + colIdx, 
+                    currentColor);
             }
         }
     }

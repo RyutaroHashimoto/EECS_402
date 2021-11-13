@@ -9,24 +9,29 @@
 bool readValue(string &value, ifstream &inFile)
 {
     bool validInputFound = false;
-    while (!validInputFound)
+    bool isContinuingReading = true;
+
+    while (isContinuingReading)
     {
         inFile >> value;
         if (inFile.eof())
         {
             cout << "EOF before reading value" << endl;
             cout << "There are some missing values." << endl;
-            break;
+            validInputFound = false;
+            isContinuingReading = false;
         }
         else if (inFile.fail())
         {
             cout << "At least, one of input values is invalid." << endl;
             cout << "Check the input value." << endl;
-            break;
+            validInputFound = false;
+            isContinuingReading = false;
         }
         else
         {
             validInputFound = true;
+            isContinuingReading = false;
         }
     }
     return validInputFound;
@@ -35,24 +40,29 @@ bool readValue(string &value, ifstream &inFile)
 bool readValue(int &value, ifstream &inFile)
 {
     bool validInputFound = false;
-    while (!validInputFound)
+    bool isContinuingReading = true;
+
+    while (isContinuingReading)
     {
         inFile >> value;
         if (inFile.eof())
         {
             cout << "EOF before reading value." << endl;
             cout << "There are some missing values." << endl;
-            break;
+            validInputFound = false;
+            isContinuingReading = false;
         }
         else if (inFile.fail())
         {
             cout << "At least, one of input values is invalid." << endl;
             cout << "Check the input value." << endl;
-            break;
+            validInputFound = false;
+            isContinuingReading = false;
         }
         else
         {
             validInputFound = true;
+            isContinuingReading = false;
         }
     }
     return validInputFound;
