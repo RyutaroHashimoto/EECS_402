@@ -328,7 +328,8 @@ void annotateImagePattern(PPMImageClass &Image)
     // Check size of pattern
     if (heightPattern > Image.getHeight() || widthPattern > Image.getWidth())
     {
-        cout << "Error. Size of pattern is bigger than original image." << endl;
+        cout << "Error. Size of pattern is bigger than original image." 
+             << endl;
         inFile.close();
         return;
     }
