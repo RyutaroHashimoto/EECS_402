@@ -5,6 +5,9 @@
 //Date: November 4, 2021
 //purpose: This program will define "PPMImageClass" class and its method.
 
+//Update at Nov, 13: Line 121. add error handling when specified size is 
+//bigger than actual size.
+
 PPMImageClass::PPMImageClass()
 {
     // default maximum color value is defined as global variables
@@ -31,6 +34,7 @@ bool PPMImageClass::readPPMFile(const string path)
     int blue;
     int inHeight;
     int inWeight;
+    int value;
 
     inFile.open(path.c_str());
 
@@ -114,6 +118,16 @@ descriptions! Check format of file."
             ColorValue.setTo(red, green, blue);
             ColorImage.setColorAtLocation(rIdx, cIdx, ColorValue);
         }
+    }
+
+    // when there still value in file
+    inFile >> value;
+    if (!(inFile.eof()))
+    {
+        cout << "Error. The specified size and actual size are different."
+             << endl;
+        inFile.close();
+        return false;
     }
     inFile.close();
     return true;
