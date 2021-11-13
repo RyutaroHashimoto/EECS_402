@@ -33,6 +33,15 @@ public:
     // get color at provided row/col index location if valid
     bool getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor);
 
+    // get the value of Red of specific point
+    int getRed(int rowIdx, int colIdx);
+
+    // get the value of Red of specific point
+    int getGreen(int rowIdx, int colIdx);
+
+    // get the value of Red of specific point
+    int getBlue(int rowIdx, int colIdx);
+
     // Set height of image
     void setHeight(int inHeight);
 

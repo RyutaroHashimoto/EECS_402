@@ -29,11 +29,20 @@ public:
     // output current colorimage into .ppm file
     bool writePPMFile(const string path);
 
-    // edit color value of specific point
+    // get color value of specific point
     void getColorAtLocation(int rowIdx, int colIdx, ColorClass &outColor);
 
     // edit color value of specific point
     void setColorAtLocation(int rowIdx, int colIdx, ColorClass &inColor);
+
+    // get the value of Red of specific point
+    int getRed(int rowIdx, int colIdx);
+
+    // get the value of Red of specific point
+    int getGreen(int rowIdx, int colIdx);
+
+    // get the value of Red of specific point
+    int getBlue(int rowIdx, int colIdx);
 
     // get height of image
     int getHeight();

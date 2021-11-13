@@ -186,6 +186,21 @@ void PPMImageClass::setColorAtLocation(int rowIdx, int colIdx,
     ColorImage.setColorAtLocation(rowIdx, colIdx, inColor);
 }
 
+int PPMImageClass::getRed(int rowIdx, int colIdx)
+{
+    return ColorImage.getRed(rowIdx, colIdx);
+}
+
+int PPMImageClass::getGreen(int rowIdx, int colIdx)
+{
+    return ColorImage.getGreen(rowIdx, colIdx);
+}
+
+int PPMImageClass::getBlue(int rowIdx, int colIdx)
+{
+    return ColorImage.getBlue(rowIdx, colIdx);
+}
+
 void PPMImageClass::ClearMemory()
 {
     ColorImage.ClearMemory();

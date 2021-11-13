@@ -530,17 +530,17 @@ Enter int for transparecy color: ");
         for (int cIdx = 0; cIdx < anotherImage.getWidth(); cIdx++)
         {
             //check whether current pixel is transparancy or not
-            anotherImage.getColorAtLocation(rIdx, cIdx, currentColor);
-            if (currentColor.getRedValue() ==
+            if (anotherImage.getRed(rIdx, cIdx) ==
                     transparancyColor.getRedValue() ||
-                currentColor.getBlueValue() ==
+                anotherImage.getBlue(rIdx, cIdx) ==
                     transparancyColor.getBlueValue() ||
-                currentColor.getGreenValue() ==
+                anotherImage.getGreen(rIdx, cIdx) ==
                     transparancyColor.getGreenValue())
             {
             }
             else
             {
+                anotherImage.getColorAtLocation(rIdx, cIdx, currentColor);
                 Image.setColorAtLocation(
                     rIdx + rowIdx, cIdx + colIdx, 
                     currentColor);
