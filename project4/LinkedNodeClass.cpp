@@ -51,22 +51,35 @@ void LinkedNodeClass::setBeforeAndAfterPointers()
     oldPrev = prevNode;
     oldNext = nextNode;
 
-    //modify two previous node
-    twoPrevious = prevNode->getPrev();
-    twoPrevious->nextNode = nextNode;
+    if (oldPrev == NULL | oldNext == NULL)
+    {
+        cout << "This node is first or last node!" << endl;
+    }
+    else
+    {
+        //modify the two previous node
+        twoPrevious = prevNode->getPrev();
+        if (twoPrevious != NULL)
+        {
+            twoPrevious->nextNode = nextNode;
+        }
 
-    //modify the node next two nodes
-    twoNext = nextNode->getPrev();
-    twoNext->prevNode = prevNode;
+        //modify the node next two nodes
+        twoNext = nextNode->getPrev();
+        if (twoNext != NULL)
+        {
+            twoNext->prevNode = prevNode;
+        }
 
-    //modify the previous node
-    oldPrev->prevNode = oldPrev->nextNode;
-    oldPrev->nextNode = twoNext;
+        //modify the previous node
+        oldPrev->prevNode = oldPrev->nextNode;
+        oldPrev->nextNode = twoNext;
 
-    //modify the next node
-    oldNext->nextNode = oldNext->prevNode;
-    oldNext->prevNode = twoPrevious;
-    
-    prevNode = oldNext;
-    nextNode = oldPrev;
+        //modify the next node
+        oldNext->nextNode = oldNext->prevNode;
+        oldNext->prevNode = twoPrevious;
+
+        prevNode = oldNext;
+        nextNode = oldPrev;
+    }
 }
