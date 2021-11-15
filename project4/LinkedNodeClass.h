@@ -7,8 +7,8 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 4, 2021
-//purpose: This program will prototyped "ColorClass" class and its method.
+//Date: November 18, 2021
+//purpose: This program will prototyped "LinkedNodeClass" class and its method.
 
 //The list node class will be the data type for individual nodes of 
 //a doubly-linked data structure.
