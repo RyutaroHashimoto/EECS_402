@@ -8,8 +8,8 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 4, 2021
-//purpose: This program will prototyped "ColorClass" class and its method.
+//Date: November 18, 2021
+//purpose: This program will prototyped "SortedListClass" class and its method.
 
 //The sorted list class does not store any data directly. Instead,
 //it contains a collection of LinkedNodeClass objects, each of which
@@ -25,7 +25,10 @@ private:
 
 public:
     //Default Constructor. Will properly initialize a list to
-    //Copy constructor. Will make a complete (deep) copy of the list, such 
+    // be an empty list, to which values can be added.
+    SortedListClass();
+
+    //Copy constructor. Will make a complete (deep) copy of the list, such
     //that one can be changed without affecting the other.
     SortedListClass(const SortedListClass &rhs);
 
