@@ -137,6 +137,7 @@ void SortedListClass::insertValue(const int &valToInsert)
                 currentNodePtr->getNext());
 
             //Recreate old node to connect new node(right)
+            currentNodePtr = currentNodePtr->getNext();
             tempValue = currentNodePtr->getValue();
             tempNext = currentNodePtr->getNext();
             delete currentNodePtr;
@@ -177,11 +178,14 @@ void SortedListClass::printBackward() const
     LinkedNodeClass *currentNodePtr;
 
     cout << "Backward List Contents Follow:" << endl;
-    currentNodePtr = tail;
-    while (currentNodePtr != NULL)
+    if (head != NULL)
     {
-        cout << currentNodePtr->getValue() << endl;
-        currentNodePtr = currentNodePtr->getPrev();
+        currentNodePtr = tail;
+        while (currentNodePtr != NULL)
+        {
+            cout << currentNodePtr->getValue() << endl;
+            currentNodePtr = currentNodePtr->getPrev();
+        }
     }
     cout << "End Of List Contents" << endl;
 }
@@ -260,15 +264,15 @@ bool SortedListClass::getElemAtIndex(const int index, int &outVal) const
     int count = 0;
     currentNodePtr = head;
 
-    while (currentNodePtr->getNext() != NULL && count < index)
+    while (currentNodePtr != NULL && count < index)
     {
-        if (currentNodePtr->getNext() == NULL) // index is out of range
-        {
-            return false;
-        }
         count++;
         currentNodePtr = currentNodePtr->getNext();
     }
-    outVal = currentNodePtr->getValue();
-    return true;
+    if (count == index)
+    {
+        outVal = currentNodePtr->getValue();
+        return true;
+    }
+    return false;
 }
