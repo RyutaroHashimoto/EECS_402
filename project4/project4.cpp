@@ -62,7 +62,7 @@ int main()
   // testList2.printForward();
 
 
-  // int value;
+  int value;
   // testList2.removeFront(value);
   // testList2.printForward();
   // cout << value << endl;
