@@ -51,7 +51,7 @@ void LinkedNodeClass::setBeforeAndAfterPointers()
     oldPrev = prevNode;
     oldNext = nextNode;
 
-    if (oldPrev == NULL | oldNext == NULL)
+    if (oldPrev == NULL || oldNext == NULL)
     {
         cout << "This node is first or last node!" << endl;
     }
