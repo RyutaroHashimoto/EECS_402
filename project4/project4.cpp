@@ -31,66 +31,66 @@ int main()
   //a sample output, etc.
 
 
-  SortedListClass testList;
+  // SortedListClass testList;
 
-  testList.printForward();
-  testList.insertValue(42);
-  testList.printForward();
+  // testList.printForward();
+  // testList.insertValue(42);
+  // testList.printForward();
 
-  testList.insertValue(10);
-  testList.printForward();
+  // testList.insertValue(10);
+  // testList.printForward();
 
-  testList.insertValue(5);
-  testList.printForward();
+  // testList.insertValue(5);
+  // testList.printForward();
 
-  testList.insertValue(50);
-  testList.printForward();
+  // testList.insertValue(50);
+  // testList.printForward();
 
-  testList.insertValue(-50);
-  testList.printForward();
+  // testList.insertValue(-50);
+  // testList.printForward();
 
-  testList.insertValue(20);
-  testList.printForward();
+  // testList.insertValue(20);
+  // testList.printForward();
 
-  testList.insertValue(20);
-  testList.printForward();
+  // testList.insertValue(20);
+  // testList.printForward();
 
-  testList.insertValue(50);
-  testList.printForward();
+  // testList.insertValue(50);
+  // testList.printForward();
 
-  SortedListClass testList2(testList);
-  testList2.printForward();
+  // SortedListClass testList2(testList);
+  // testList2.printForward();
 
 
-  int value;
-  testList2.removeFront(value);
-  testList2.printForward();
-  cout << value << endl;
+  // int value;
+  // testList2.removeFront(value);
+  // testList2.printForward();
+  // cout << value << endl;
 
-  testList2.removeLast(value);
-  testList2.printForward();
-  cout << value << endl;
+  // testList2.removeLast(value);
+  // testList2.printForward();
+  // cout << value << endl;
 
-  testList2.printBackward();
+  // testList2.printBackward();
 
-  testList.printForward();
+  // testList.printForward();
 
   SortedListClass testList3;
-  testList3.insertValue(42);
-  testList3.printForward();
-  testList3.removeFront(value);
-  testList3.printForward();
-  testList3.printBackward();
-  cout << value << endl;
+  // testList3.insertValue(42);
+  // testList3.printForward();
+  // testList3.removeFront(value);
+  // testList3.printForward();
+  // testList3.printBackward();
+  // cout << value << endl;
 
-  testList3.insertValue(24);
-  testList3.printForward();
-  testList3.removeLast(value);
-  testList3.printForward();
-  testList3.printBackward();
-  cout << value << endl;
+  // testList3.insertValue(24);
+  // testList3.printForward();
+  // testList3.removeLast(value);
+  // testList3.printForward();
+  // testList3.printBackward();
+  // cout << value << endl;
 
-  cout << testList2.getNumElems() << endl;
+  // cout << testList2.getNumElems() << endl;
 
   testList3.insertValue(1);
   testList3.insertValue(2);
