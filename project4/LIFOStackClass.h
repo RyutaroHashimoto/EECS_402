@@ -8,8 +8,8 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 4, 2021
-//purpose: This program will prototyped "ColorClass" class and its method.
+//Date: November 18, 2021
+//purpose: This program will prototyped "LIFOStackClass" class and its method.
 
 class LIFOStackClass
 {
