@@ -161,6 +161,7 @@ int main()
   testLIFOStackClass.print();                    //
   cout << deque << endl;                         //3
   cout << testLIFOStackClass.pop(deque) << endl; //0
+
   return 0;
 }
 

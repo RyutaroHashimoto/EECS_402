@@ -47,9 +47,11 @@ void LinkedNodeClass::setBeforeAndAfterPointers()
     LinkedNodeClass *oldNext;
     LinkedNodeClass *twoPrevious;
     LinkedNodeClass *twoNext;
+    LinkedNodeClass *original;
 
     oldPrev = prevNode;
     oldNext = nextNode;
+    original = prevNode->getNext();
 
     if (oldPrev == NULL || oldNext == NULL)
     {
@@ -57,27 +59,35 @@ void LinkedNodeClass::setBeforeAndAfterPointers()
     }
     else
     {
+
         //modify the two previous node
         twoPrevious = prevNode->getPrev();
         if (twoPrevious != NULL)
         {
-            twoPrevious->nextNode = nextNode;
+            twoPrevious->nextNode = oldNext;
+            oldNext->prevNode = twoPrevious;
+        } else
+        {
+            oldNext->prevNode = NULL;
         }
 
         //modify the node next two nodes
-        twoNext = nextNode->getPrev();
+        twoNext = nextNode->getNext();
         if (twoNext != NULL)
         {
-            twoNext->prevNode = prevNode;
+            twoNext->prevNode = oldPrev;
+            oldPrev->nextNode = twoNext;
+        }
+        else
+        {
+            oldPrev->nextNode = NULL;
         }
 
         //modify the previous node
-        oldPrev->prevNode = oldPrev->nextNode;
-        oldPrev->nextNode = twoNext;
+        oldPrev->prevNode = original;
 
-        //modify the next node
-        oldNext->nextNode = oldNext->prevNode;
-        oldNext->prevNode = twoPrevious;
+        // //modify the next node
+        oldNext->nextNode = original;
 
         prevNode = oldNext;
         nextNode = oldPrev;

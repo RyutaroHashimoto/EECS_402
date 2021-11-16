@@ -24,6 +24,7 @@ private:
                            //if list is empty.
 
 public:
+    void swap(); 
     //Default Constructor. Will properly initialize a list to
     // be an empty list, to which values can be added.
     SortedListClass();
@@ -93,6 +94,7 @@ public:
     bool getElemAtIndex(
         const int index,
         int &outVal) const;
-};
+    };
+
 
 #endif
