@@ -22,7 +22,7 @@ void FIFOQueueClass::enqueue(const int &newItem)
 {
     LinkedNodeClass *newNodePtr;
     LinkedNodeClass *currentNodePtr;
-    LinkedNodeClass *tempPre;
+    LinkedNodeClass *tempNext;
     int tempValue;
 
     if (head == NULL)
@@ -32,16 +32,16 @@ void FIFOQueueClass::enqueue(const int &newItem)
         tail = newNodePtr;
     }
     else{
-        newNodePtr = new LinkedNodeClass(tail, newItem, NULL);
-        currentNodePtr = tail;
-        tempPre = currentNodePtr->getPrev();
+        currentNodePtr = head;
+        newNodePtr = new LinkedNodeClass(NULL, newItem, currentNodePtr);
+        tempNext = currentNodePtr->getNext();
         tempValue = currentNodePtr->getValue();
         delete currentNodePtr;
         currentNodePtr = new LinkedNodeClass(
-            tempPre,
+            newNodePtr,
             tempValue,
-            newNodePtr);
-        tail = newNodePtr;
+            tempNext);
+        head = newNodePtr;
     }
 }
 
@@ -54,11 +54,8 @@ bool FIFOQueueClass::dequeue(int &outItem)
     }
     else if (head->getNext() == NULL) //for single node list
     {
-        newHeadNodePtr = head;
-        outItem = newHeadNodePtr->getValue();
-        delete newHeadNodePtr;
-        head = NULL;
-        // tail = NULL;
+        outItem = head->getValue();
+        clear();
     }
     else
     {
