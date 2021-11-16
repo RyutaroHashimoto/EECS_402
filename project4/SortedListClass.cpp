@@ -38,7 +38,8 @@ SortedListClass::SortedListClass(const SortedListClass &rhs)
             //Copy next node
             newNodePtr = new LinkedNodeClass(
                                     newCurrentNodePtr, 
-                                    originalCurrentNodePtr->getValue(), originalCurrentNodePtr->getNext());
+                                    originalCurrentNodePtr->getValue(), 
+                                    originalCurrentNodePtr->getNext());
             //Recreate current node to connect new next node
             tempPre = newCurrentNodePtr->getPrev();
             tempValue = newCurrentNodePtr->getValue();
