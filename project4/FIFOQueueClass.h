@@ -8,14 +8,14 @@ using namespace std;
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 4, 2021
-//purpose: This program will prototyped "ColorClass" class and its method.
+//Date: November 18, 2021
+//purpose: This program will prototyped "FIFOQueueClass" class and its method.
 
 class FIFOQueueClass
 {
 private:
     LinkedNodeClass *head; //Points to the first node in a queue, or NULL
-    //if queue is empty.
+                           //if queue is empty.
 
     LinkedNodeClass *tail; //Points to the last node in a queue, or NULL
                            //if queue is empty.
@@ -30,9 +30,7 @@ public:
     ~FIFOQueueClass();
 
     //Inserts the value provided (newItem) into the queue. 
-    void enqueue(
-         const int &newItem
-    );
+    void enqueue(const int &newItem);
 
     //Attempts to take the next item out of the queue. If the 
     //queue is empty, the function returns false and the state 
