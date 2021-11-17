@@ -44,8 +44,8 @@ int main()
   testList.insertValue(2);
   testList.printForward(); // 1 2
 
-  // testList.insertValue(3);
-  // testList.printForward();  // 1 2 3
+  testList.insertValue(3);
+  testList.printForward();  // 1 2 3
 
 
 
