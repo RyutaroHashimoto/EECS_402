@@ -70,7 +70,7 @@ void SortedListClass::clear()
     while (currentNodePtr != NULL)
     {
         nextNodePtr = currentNodePtr->getNext();
-        delete[] currentNodePtr;
+        delete currentNodePtr;
         currentNodePtr = nextNodePtr;
     }
     head = NULL;
@@ -99,7 +99,7 @@ void SortedListClass::insertValue(const int &valToInsert)
         //Recreate old first node to follow new first node
         tempValue = head->getValue();
         tempNext = head->getNext();
-        delete[] head;
+        delete head;
         head = new LinkedNodeClass(newNodePtr, tempValue, tempNext);
         head = newNodePtr;
     }
@@ -123,7 +123,7 @@ void SortedListClass::insertValue(const int &valToInsert)
             //Recreate old node to connect new node(left)
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
-            delete[] currentNodePtr;
+            delete currentNodePtr;
             currentNodePtr = new LinkedNodeClass(
                                 tempPre,
                                 tempValue,
@@ -141,7 +141,7 @@ void SortedListClass::insertValue(const int &valToInsert)
             currentNodePtr = currentNodePtr->getNext();
             tempValue = currentNodePtr->getValue();
             tempNext = currentNodePtr->getNext();
-            delete[] currentNodePtr;
+            delete currentNodePtr;
             currentNodePtr = new LinkedNodeClass(
                 newNodePtr,
                 tempValue,
@@ -151,7 +151,7 @@ void SortedListClass::insertValue(const int &valToInsert)
             currentNodePtr = newNodePtr->getPrev();
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
-            delete[] currentNodePtr;
+            delete currentNodePtr;
             currentNodePtr = new LinkedNodeClass(
                 tempPre,
                 tempValue,
@@ -212,7 +212,7 @@ bool SortedListClass::removeFront(int &theVal)
         newHeadNodePtr = head->getNext();
         newHeadNodePtr->setPreviousPointerToNull();
 
-        delete[] head;
+        delete head;
         head = newHeadNodePtr;
     }
     return true;
@@ -229,7 +229,7 @@ bool SortedListClass::removeLast(int &theVal)
     else if (head->getNext() == NULL)  //for single node list
     {
         theVal = head->getValue();
-        delete[] head;
+        delete head;
         head = NULL;
         tail = NULL;
     }
