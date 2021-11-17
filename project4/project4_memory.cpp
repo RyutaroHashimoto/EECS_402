@@ -47,10 +47,13 @@ int main()
   testList.insertValue(3);
   testList.printForward();  // 1 2 3
 
+  testList.insertValue(-50);
+  testList.printForward(); // -50 1 2 3
 
+  testList.insertValue(1);
+  testList.printForward(); // -50 1 1 2 3
 
-  
-  return 0;
+    return 0;
 }
 
 #endif
