@@ -99,6 +99,7 @@ void FIFOQueueClass::clear()
     while (currentNodePtr != NULL)
     {
         nextNodePtr = currentNodePtr->getNext();
+        delete currentNodePtr;
         currentNodePtr = nextNodePtr;
     }
     head = NULL;
