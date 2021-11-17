@@ -114,7 +114,7 @@ void SortedListClass::insertValue(const int &valToInsert)
         {
             //Create new node
             newNodePtr = new LinkedNodeClass(
-                        tail, 
+                        currentNodePtr, 
                         valToInsert, 
                         NULL);
             
