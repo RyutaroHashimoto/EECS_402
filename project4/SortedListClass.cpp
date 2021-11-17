@@ -122,6 +122,8 @@ void SortedListClass::insertValue(const int &valToInsert)
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
             // delete currentNodePtr;
+            cout << currentNodePtr << endl;
+            cout << tail << endl;
             currentNodePtr = new LinkedNodeClass(
                                 tempPre,
                                 tempValue,

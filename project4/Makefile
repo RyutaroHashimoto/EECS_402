@@ -16,7 +16,7 @@ SortedListClass.o: SortedListClass.cpp SortedListClass.h LinkedNodeClass.h
 	g++ -std=c++98 -g -Wall -c SortedListClass.cpp -o SortedListClass.o
 
 proj4.exe: LinkedNodeClass.o LIFOStackClass.o FIFOQueueClass.o SortedListClass.o proj4.o 
-	g++ -std=c++98 LinkedNodeClass.o LIFOStackClass.o FIFOQueueClass.o SortedListClass.o proj4.o  -o proj4.exe
+	g++ -std=c++98 -g -Wall LinkedNodeClass.o LIFOStackClass.o FIFOQueueClass.o SortedListClass.o proj4.o  -o proj4.exe
 
 clean:
 	rm -f *.o *.exe
