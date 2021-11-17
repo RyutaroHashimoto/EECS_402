@@ -30,8 +30,8 @@ void FIFOQueueClass::enqueue(const int &newItem)
     }
     else{
         newNodePtr = new LinkedNodeClass(NULL, newItem, head);
-        tempNext = currentNodePtr->getNext();
-        tempValue = currentNodePtr->getValue();
+        tempNext = head->getNext();
+        tempValue = head->getValue();
         *head = LinkedNodeClass(
             newNodePtr,
             tempValue,
