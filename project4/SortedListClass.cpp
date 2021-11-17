@@ -117,15 +117,18 @@ void SortedListClass::insertValue(const int &valToInsert)
                         currentNodePtr, 
                         valToInsert, 
                         NULL);
-            
+
             //Recreate old node to connect new node(left)
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
             // delete currentNodePtr;
-            currentNodePtr = new LinkedNodeClass(
+            cout << currentNodePtr << endl;
+            *currentNodePtr = LinkedNodeClass(
                                 tempPre,
                                 tempValue,
                                 newNodePtr);
+
+            cout << currentNodePtr << endl;
             if (currentNodePtr->getPrev() == NULL)
             {
                 head = currentNodePtr;
