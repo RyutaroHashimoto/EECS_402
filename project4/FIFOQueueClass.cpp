@@ -36,6 +36,10 @@ void FIFOQueueClass::enqueue(const int &newItem)
             newNodePtr,
             tempValue,
             tempNext);
+        if (head->getNext() == NULL)
+        {
+            tail = head;
+        }
         head = newNodePtr;
     }
 }
