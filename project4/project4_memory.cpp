@@ -53,7 +53,19 @@ int main()
   testList.insertValue(1);
   testList.printForward(); // -50 1 1 2 3
 
-    return 0;
+  testList.insertValue(3);
+  testList.printForward(); // -50 -50 1 1 2 3 3
+
+  testList.insertValue(-10);
+  testList.printForward();  // -50 -50 -10 1 1 2 3 3
+  testList.printBackward(); //3 3 2 1 1 -10 -50 -50
+
+  SortedListClass testList2(testList);
+  testList2.printForward();                // -50 -50 -10 1 1 2 3 3
+  testList2.printBackward();               //3 3 2 1 1 -10 -50 -50
+  cout << testList2.getNumElems() << endl; //8
+  
+  return 0;
 }
 
 #endif
