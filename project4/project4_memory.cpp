@@ -10,7 +10,7 @@ using namespace std;
 //program header
 //Name: Ryutaro Hashimoto
 //Date: November 18, 2021
-//purpose: This program will test SortedListClass, LIFOStackClass 
+//purpose: This program will test SortedListClass, LIFOStackClass
 //and FIFOQueueClass
 
 //Do NOT remove any of the preprocessor directives in this file.
@@ -19,7 +19,7 @@ using namespace std;
 //file exactly as provided to you with the project.
 #ifdef ANDREW_TEST
 #include "andrewTest.h"
-#else 
+#else
 
 int main()
 {
@@ -34,24 +34,27 @@ int main()
   cout << " test SortedListClass" << endl;
   SortedListClass testList;
 
-  testList.printForward();  //
+  testList.printForward(); //
   testList.printBackward();
 
   testList.insertValue(1);
-  testList.printForward();  // 1
+  testList.printForward(); // 1
   testList.printBackward();
 
   testList.insertValue(2);
   testList.printForward(); // 1 2
 
   testList.insertValue(3);
-  testList.printForward();  // 1 2 3
+  testList.printForward(); // 1 2 3
 
   testList.insertValue(-50);
   testList.printForward(); // -50 1 2 3
 
   testList.insertValue(1);
   testList.printForward(); // -50 1 1 2 3
+
+  testList.insertValue(-50);
+  testList.printForward(); // -50 -50 1 1 2 3
 
   testList.insertValue(3);
   testList.printForward(); // -50 -50 1 1 2 3 3
@@ -64,7 +67,73 @@ int main()
   testList2.printForward();                // -50 -50 -10 1 1 2 3 3
   testList2.printBackward();               //3 3 2 1 1 -10 -50 -50
   cout << testList2.getNumElems() << endl; //8
-  
+
+  int value;
+  testList2.removeFront(value);
+  testList2.printForward(); // -50 -10 1 1 2 3 3
+  cout << value << endl;    //-50
+
+  testList2.removeLast(value);
+  testList2.printForward(); // -50 -10 1 1 2 3
+  cout << value << endl;    //3
+
+  testList2.printBackward(); // 3 2 1 1 -10 -50
+
+  testList2.removeLast(value);
+  testList2.removeLast(value);
+  testList2.removeLast(value);
+  testList2.removeLast(value);
+  testList2.removeLast(value);
+  testList2.removeLast(value);
+  testList2.printForward();  //
+  testList2.printBackward(); //
+
+  testList.printBackward(); //3 3 2 1 1 -10 -50 -50
+
+  testList.getElemAtIndex(0, value);
+  cout << value << endl; //-50
+
+  testList.getElemAtIndex(2, value);
+  cout << value << endl; //-10
+
+  testList.getElemAtIndex(7, value);
+  cout << value << endl; //3
+
+  cout << testList.getElemAtIndex(20, value) << endl; //0
+
+  testList2.clear();
+  testList2.printForward();
+
+  // test FIFOQueueClass
+  cout << " test FIFOQueueClass" << endl;
+  FIFOQueueClass testFIFOQueueClass;
+  int deque;
+
+  testFIFOQueueClass.print(); //
+
+  testFIFOQueueClass.enqueue(1);
+  testFIFOQueueClass.print(); //1
+
+  testFIFOQueueClass.enqueue(2);
+  testFIFOQueueClass.enqueue(3);
+  testFIFOQueueClass.print(); //3 2 1
+
+  cout << testFIFOQueueClass.getNumElems() << endl; //3
+
+  testFIFOQueueClass.dequeue(deque);
+  testFIFOQueueClass.print(); //2 1
+  cout << deque << endl;      //3
+
+  testFIFOQueueClass.dequeue(deque);
+  testFIFOQueueClass.print(); //1
+  cout << deque << endl;      //2
+
+  testFIFOQueueClass.dequeue(deque);
+  testFIFOQueueClass.print(); //
+  cout << deque << endl;      //1
+
+  cout << testFIFOQueueClass.dequeue(deque) << endl; //0
+
   return 0;
 }
 
