@@ -58,8 +58,6 @@ SortedListClass::SortedListClass(const SortedListClass &rhs)
 SortedListClass::~SortedListClass()
 {
     clear();
-    delete head;
-    delete tail;
 }
 
 void SortedListClass::clear()
@@ -99,7 +97,7 @@ void SortedListClass::insertValue(const int &valToInsert)
         //Recreate old first node to follow new first node
         tempValue = head->getValue();
         tempNext = head->getNext();
-        delete head;
+        // delete head;
         head = new LinkedNodeClass(newNodePtr, tempValue, tempNext);
         head = newNodePtr;
     }
@@ -123,7 +121,7 @@ void SortedListClass::insertValue(const int &valToInsert)
             //Recreate old node to connect new node(left)
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
-            delete currentNodePtr;
+            // delete currentNodePtr;
             currentNodePtr = new LinkedNodeClass(
                                 tempPre,
                                 tempValue,
@@ -141,7 +139,7 @@ void SortedListClass::insertValue(const int &valToInsert)
             currentNodePtr = currentNodePtr->getNext();
             tempValue = currentNodePtr->getValue();
             tempNext = currentNodePtr->getNext();
-            delete currentNodePtr;
+            // delete currentNodePtr;
             currentNodePtr = new LinkedNodeClass(
                 newNodePtr,
                 tempValue,
@@ -151,7 +149,7 @@ void SortedListClass::insertValue(const int &valToInsert)
             currentNodePtr = newNodePtr->getPrev();
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
-            delete currentNodePtr;
+            // delete currentNodePtr;
             currentNodePtr = new LinkedNodeClass(
                 tempPre,
                 tempValue,
