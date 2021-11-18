@@ -1,6 +1,6 @@
 all: proj4.exe
 
-proj4.o: project4.cpp LIFOStackClass.h FIFOQueueClass.h SortedListClass.h
+proj4.o: project4_memory.cpp LIFOStackClass.h FIFOQueueClass.h SortedListClass.h
 	g++ -std=c++98 -g -Wall -c project4.cpp -o proj4.o
 
 LinkedNodeClass.o: LinkedNodeClass.cpp LinkedNodeClass.h
@@ -16,7 +16,7 @@ SortedListClass.o: SortedListClass.cpp SortedListClass.h LinkedNodeClass.h
 	g++ -std=c++98 -g -Wall -c SortedListClass.cpp -o SortedListClass.o
 
 proj4.exe: LinkedNodeClass.o LIFOStackClass.o FIFOQueueClass.o SortedListClass.o proj4.o 
-	g++ -std=c++98 LinkedNodeClass.o LIFOStackClass.o FIFOQueueClass.o SortedListClass.o proj4.o  -o proj4.exe
+	g++ -std=c++98 -g -Wall LinkedNodeClass.o LIFOStackClass.o FIFOQueueClass.o SortedListClass.o proj4.o  -o proj4.exe
 
 clean:
 	rm -f *.o *.exe

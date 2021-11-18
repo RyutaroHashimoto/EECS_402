@@ -14,14 +14,11 @@ FIFOQueueClass::FIFOQueueClass()
 FIFOQueueClass::~FIFOQueueClass()
 {
     clear();
-    delete head;
-    delete tail;
 }
 
 void FIFOQueueClass::enqueue(const int &newItem)
 {
-    LinkedNodeClass *newNodePtr;
-    LinkedNodeClass *currentNodePtr;
+    LinkedNodeClass *newNodePtr=NULL;
     LinkedNodeClass *tempNext;
     int tempValue;
 
@@ -32,12 +29,10 @@ void FIFOQueueClass::enqueue(const int &newItem)
         tail = newNodePtr;
     }
     else{
-        currentNodePtr = head;
-        newNodePtr = new LinkedNodeClass(NULL, newItem, currentNodePtr);
-        tempNext = currentNodePtr->getNext();
-        tempValue = currentNodePtr->getValue();
-        delete currentNodePtr;
-        currentNodePtr = new LinkedNodeClass(
+        newNodePtr = new LinkedNodeClass(NULL, newItem, head);
+        tempNext = head->getNext();
+        tempValue = head->getValue();
+        *head = LinkedNodeClass(
             newNodePtr,
             tempValue,
             tempNext);
