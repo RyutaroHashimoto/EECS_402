@@ -134,6 +134,34 @@ int main()
 
   cout << testFIFOQueueClass.dequeue(deque) << endl; //0
 
+  // test LIFOStackClass
+  cout << " test LIFOStackClass" << endl;
+  LIFOStackClass testLIFOStackClass;
+
+  testLIFOStackClass.print(); //
+
+  testLIFOStackClass.push(1);
+  testLIFOStackClass.print(); //1
+
+  testLIFOStackClass.push(2);
+  testLIFOStackClass.push(3);
+  testLIFOStackClass.print(); //1 2 3
+
+  cout << testLIFOStackClass.getNumElems() << endl; //3
+
+  testLIFOStackClass.pop(deque);
+  testLIFOStackClass.print(); //2 3
+  cout << deque << endl;      //1
+
+  testLIFOStackClass.pop(deque);
+  testLIFOStackClass.print(); //3
+  cout << deque << endl;      //2
+
+  testLIFOStackClass.pop(deque);
+  testLIFOStackClass.print();                    //
+  cout << deque << endl;                         //3
+  cout << testLIFOStackClass.pop(deque) << endl; //0
+
   return 0;
 }
 

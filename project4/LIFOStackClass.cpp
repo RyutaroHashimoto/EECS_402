@@ -14,8 +14,6 @@ LIFOStackClass::LIFOStackClass()
 LIFOStackClass::~LIFOStackClass()
 {
     clear();
-    delete head;
-    delete tail;
 }
 
 void LIFOStackClass::push(const int &newItem)
@@ -37,8 +35,7 @@ void LIFOStackClass::push(const int &newItem)
         currentNodePtr = tail;
         tempPre = currentNodePtr->getPrev();
         tempValue = currentNodePtr->getValue();
-        delete currentNodePtr;
-        currentNodePtr = new LinkedNodeClass(
+        *currentNodePtr = LinkedNodeClass(
             tempPre,
             tempValue,
             newNodePtr);

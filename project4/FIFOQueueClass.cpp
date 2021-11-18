@@ -57,6 +57,7 @@ bool FIFOQueueClass::dequeue(int &outItem)
         outItem = head->getValue();
         newHeadNodePtr = head->getNext();
         newHeadNodePtr->setPreviousPointerToNull();
+        delete head;
         head = newHeadNodePtr;
     }
     return true;
