@@ -18,7 +18,7 @@ FIFOQueueClass::~FIFOQueueClass()
 
 void FIFOQueueClass::enqueue(const int &newItem)
 {
-    LinkedNodeClass *newNodePtr;
+    LinkedNodeClass *newNodePtr=NULL;
     LinkedNodeClass *tempNext;
     int tempValue;
 
@@ -36,10 +36,6 @@ void FIFOQueueClass::enqueue(const int &newItem)
             newNodePtr,
             tempValue,
             tempNext);
-        if (head->getNext() == NULL)
-        {
-            tail = head;
-        }
         head = newNodePtr;
     }
 }
