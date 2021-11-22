@@ -4,6 +4,8 @@
 //Name: Ryutaro Hashimoto
 //Date: November 18, 2021
 //purpose: This program will define "SortedListClass" class and its method.
+//Update: Nov 21, printed element indented two spaces (176, 192)
+//Update: Nov 21, change flow for pempty list (273)
 
 SortedListClass::SortedListClass()
 {
@@ -120,13 +122,11 @@ void SortedListClass::insertValue(const int &valToInsert)
             tempValue = currentNodePtr->getValue();
             tempPre = currentNodePtr->getPrev();
             // delete currentNodePtr;
-            cout << currentNodePtr << endl;
             *currentNodePtr = LinkedNodeClass(
                                 tempPre,
                                 tempValue,
                                 newNodePtr);
 
-            cout << currentNodePtr << endl;
             if (currentNodePtr->getPrev() == NULL)
             {
                 head = currentNodePtr;
@@ -171,7 +171,7 @@ void SortedListClass::printForward() const
     currentNodePtr = head;
     while(currentNodePtr != NULL)
     {
-        cout << currentNodePtr->getValue() << endl;
+        cout << "  " << currentNodePtr->getValue() << endl;
         currentNodePtr = currentNodePtr->getNext();
     }
     cout << "End Of List Contents" << endl;
@@ -187,7 +187,7 @@ void SortedListClass::printBackward() const
         currentNodePtr = tail;
         while (currentNodePtr != NULL)
         {
-            cout << currentNodePtr->getValue() << endl;
+            cout << "  " << currentNodePtr->getValue() << endl;
             currentNodePtr = currentNodePtr->getPrev();
         }
     }
@@ -268,6 +268,10 @@ bool SortedListClass::getElemAtIndex(const int index, int &outVal) const
     int count = 0;
     currentNodePtr = head;
 
+    if (head == NULL)  // for empty list
+    {
+        return false;
+    }
     while (currentNodePtr != NULL && count < index)
     {
         count++;
