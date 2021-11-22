@@ -4,6 +4,7 @@
 //Name: Ryutaro Hashimoto
 //Date: November 18, 2021
 //purpose: This program will define "SortedListClass" class and its method.
+//Update: Nov 21, printed element indented two spaces
 
 SortedListClass::SortedListClass()
 {
@@ -171,7 +172,7 @@ void SortedListClass::printForward() const
     currentNodePtr = head;
     while(currentNodePtr != NULL)
     {
-        cout << currentNodePtr->getValue() << endl;
+        cout << "  " << currentNodePtr->getValue() << endl;
         currentNodePtr = currentNodePtr->getNext();
     }
     cout << "End Of List Contents" << endl;
@@ -187,7 +188,7 @@ void SortedListClass::printBackward() const
         currentNodePtr = tail;
         while (currentNodePtr != NULL)
         {
-            cout << currentNodePtr->getValue() << endl;
+            cout << "  " << currentNodePtr->getValue() << endl;
             currentNodePtr = currentNodePtr->getPrev();
         }
     }
