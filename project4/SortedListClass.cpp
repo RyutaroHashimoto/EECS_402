@@ -29,8 +29,8 @@ SortedListClass::SortedListClass(const SortedListClass &rhs)
     else{
         originalCurrentNodePtr = rhs.head;
         newCurrentNodePtr = new LinkedNodeClass(
-                    originalCurrentNodePtr->getPrev(), 
-                    originalCurrentNodePtr->getValue(), 
+                    originalCurrentNodePtr->getPrev(),
+                    originalCurrentNodePtr->getValue(),
                     originalCurrentNodePtr->getNext());
         head = newCurrentNodePtr;
         tail = newCurrentNodePtr;
@@ -39,15 +39,15 @@ SortedListClass::SortedListClass(const SortedListClass &rhs)
         {
             //Copy next node
             newNodePtr = new LinkedNodeClass(
-                                    newCurrentNodePtr, 
-                                    originalCurrentNodePtr->getValue(), 
+                                    newCurrentNodePtr,
+                                    originalCurrentNodePtr->getValue(),
                                     originalCurrentNodePtr->getNext());
             //Recreate current node to connect new next node
             tempPre = newCurrentNodePtr->getPrev();
             tempValue = newCurrentNodePtr->getValue();
             *newCurrentNodePtr = LinkedNodeClass(
-                                    tempPre, 
-                                    tempValue, 
+                                    tempPre,
+                                    tempValue,
                                     newNodePtr);
             tail = newNodePtr;
             originalCurrentNodePtr = originalCurrentNodePtr->getNext();
@@ -101,7 +101,7 @@ void SortedListClass::insertValue(const int &valToInsert)
         *head = LinkedNodeClass(newNodePtr, tempValue, tempNext);
         head = newNodePtr;
     }
-    else 
+    else
     {
         currentNodePtr = head;
         // find the node after which the new node
@@ -114,8 +114,8 @@ void SortedListClass::insertValue(const int &valToInsert)
         {
             //Create new node
             newNodePtr = new LinkedNodeClass(
-                        currentNodePtr, 
-                        valToInsert, 
+                        currentNodePtr,
+                        valToInsert,
                         NULL);
 
             //Recreate old node to connect new node(left)
@@ -272,12 +272,14 @@ bool SortedListClass::getElemAtIndex(const int index, int &outVal) const
     {
         return false;
     }
+
     while (currentNodePtr != NULL && count < index)
     {
         count++;
         currentNodePtr = currentNodePtr->getNext();
     }
-    if (count == index)
+
+    if (count == index && currentNodePtr != NULL)
     {
         outVal = currentNodePtr->getValue();
         return true;
