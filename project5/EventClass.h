@@ -62,8 +62,27 @@ class EventClass
     //SortedListClass needs in order to sort event class objects
     //here!  An event "A" is "less than" an event "B" if
     //"A"'s time is less than "B"'s time.
+    bool operator>(const EventClass in)
+    {
+      bool result;
+      if (timeOccurs > in.getTimeOccurs())
+        result = true;
+      else
+        result = false;
+      return result;
+    }
 
-    //Since this insertion operator really ought to be a method, but 
+    bool operator<=(const EventClass in)
+    {
+      bool result;
+      if (timeOccurs <= in.getTimeOccurs())
+        result = true;
+      else
+        result = false;
+      return result;
+    }
+
+    //Since this insertion operator really ought to be a method, but
     //can't be due to the way C++ manages operator overloading, we
     //make it an "honorary method" by declaring it as a friend.
     friend std::ostream& operator<<(

@@ -49,4 +49,3 @@ ostream& operator<<(
   outStream << " Time: " << eventToPrint.timeOccurs;
   return outStream;
 }
-
