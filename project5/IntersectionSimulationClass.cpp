@@ -254,7 +254,7 @@ void IntersectionSimulationClass::scheduleLightChange(
   }
 
   eventList.insertValue(NextLightChange);
-  cout << "Time:" << currentTime << " Scheduled " << NextLightChange << endl;
+  cout << "Time: " << currentTime << " Scheduled " << NextLightChange << endl;
 }
 
 bool IntersectionSimulationClass::handleNextEvent(
@@ -422,10 +422,10 @@ bool IntersectionSimulationClass::handleNextEvent(
       }
     }
 
-    cout << "North-bound cars advanced on yellow:" << countNorthCar
+    cout << "North-bound cars advanced on yellow: " << countNorthCar
          << " Remaining queue: " << northQueue.getNumElems() << endl;
 
-    cout << "South-bound cars advanced on yellow:" << countSouthCar
+    cout << "South-bound cars advanced on yellow: " << countSouthCar
          << " Remaining queue: " << southQueue.getNumElems() << endl;
 
     // Switch light
@@ -478,10 +478,10 @@ bool IntersectionSimulationClass::handleNextEvent(
       }
     }
 
-    cout << "East-bound cars advanced on green:" << countEastCar
+    cout << "East-bound cars advanced on green: " << countEastCar
          << " Remaining queue: " << eastQueue.getNumElems() << endl;
 
-    cout << "West-bound cars advanced on green:" << countWestCar
+    cout << "West-bound cars advanced on green: " << countWestCar
          << " Remaining queue: " << westQueue.getNumElems() << endl;
 
     // Switch light
@@ -559,10 +559,10 @@ bool IntersectionSimulationClass::handleNextEvent(
       }
     }
 
-    cout << "East-bound cars advanced on yellow:" << countEastCar
+    cout << "East-bound cars advanced on yellow: " << countEastCar
          << " Remaining queue: " << eastQueue.getNumElems() << endl;
 
-    cout << "West-bound cars advanced on yellow:" << countWestCar
+    cout << "West-bound cars advanced on yellow: " << countWestCar
          << " Remaining queue: " << westQueue.getNumElems() << endl;
 
     // Switch light
@@ -617,10 +617,10 @@ bool IntersectionSimulationClass::handleNextEvent(
       }
     }
 
-    cout << "North-bound cars advanced on green:" << countNorthCar
+    cout << "North-bound cars advanced on green: " << countNorthCar
          << " Remaining queue: " << northQueue.getNumElems() << endl;
 
-    cout << "South-bound cars advanced on green:" << countSouthCar
+    cout << "South-bound cars advanced on green: " << countSouthCar
          << " Remaining queue: " << southQueue.getNumElems() << endl;
 
     // Switch light
