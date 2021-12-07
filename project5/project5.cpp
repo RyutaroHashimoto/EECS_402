@@ -4,6 +4,8 @@ using namespace std;
 
 #include "IntersectionSimulationClass.h"
 
+#include "SortedListClass.h"
+
 //Programmer: Andrew Morgan
 //Date: November 2020
 //Purpose: High-level main function to setup a simulation of traffic

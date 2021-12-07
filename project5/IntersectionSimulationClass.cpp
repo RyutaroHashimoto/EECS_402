@@ -194,43 +194,42 @@ void IntersectionSimulationClass::scheduleArrival(
      )
 {
   cout << "THIS FUNCTION NEEDS TO BE IMPLEMENTED" << endl;
+
 }
 
 void IntersectionSimulationClass::scheduleLightChange(
      )
 {
-  cout << "Create new LightChange Event" << endl;
-
   // Create new LightChange Event
+  EventClass NextLightChange;
+
   if (currentLight == LIGHT_GREEN_EW)
   {
-    EventClass NextLightChange(
+    NextLightChange = EventClass(
         eastWestGreenTime + currentTime,
         EVENT_CHANGE_YELLOW_EW);
-    eventList.insertValue(NextLightChange);
   }
   else if (currentLight == LIGHT_YELLOW_EW)
   {
-    EventClass NextLightChange(
+    NextLightChange = EventClass(
         eastWestYellowTime + currentTime,
         EVENT_CHANGE_GREEN_NS);
-    eventList.insertValue(NextLightChange);
   }
   else if (currentLight == LIGHT_GREEN_NS)
   {
-    EventClass NextLightChange(
+    NextLightChange = EventClass(
         northSouthGreenTime + currentTime,
         EVENT_CHANGE_YELLOW_NS);
-    eventList.insertValue(NextLightChange);
   }
   else
   {
-    EventClass NextLightChange(
+    NextLightChange = EventClass(
         northSouthYellowTime + currentTime,
         EVENT_CHANGE_GREEN_EW);
-    eventList.insertValue(NextLightChange);
   }
 
+  eventList.insertValue(NextLightChange);
+  cout << "Time:" << currentTime << " " << NextLightChange << endl;
 }
 
 bool IntersectionSimulationClass::handleNextEvent(
