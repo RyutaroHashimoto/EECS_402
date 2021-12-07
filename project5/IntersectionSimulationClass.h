@@ -10,6 +10,8 @@
 #include "FIFOQueueClass.h"
 #include "CarClass.h"
 
+#include "random.h"
+
 //Programmer: Andrew Morgan
 //Date: November 2020
 //Purpose: A class that will act as the basis for an event-driven
@@ -43,7 +45,7 @@ class IntersectionSimulationClass
 
     //The following attributes represent statistical distributions that
     //characterize how vehicles arrive at the intersection in the four
-    //different directions.  Our analysis has shown that arrivals are 
+    //different directions.  Our analysis has shown that arrivals are
     //best characterized by a Normal Distribution in each direction, but
     //the parameters of the Normal Distribution depends on the direction.
     //For example, cars may arrive heading north more frequently than
