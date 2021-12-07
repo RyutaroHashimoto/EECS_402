@@ -197,6 +197,9 @@ void IntersectionSimulationClass::scheduleArrival(
   EventClass NextArrivalEvent;
   int arriveTime;
 
+  // Set seed
+  setSeed(randomSeedVal);
+
   if (travelDir == EAST_DIRECTION)
   {
     arriveTime = getPositiveNormal(eastArrivalMean, eastArrivalStdDev);
