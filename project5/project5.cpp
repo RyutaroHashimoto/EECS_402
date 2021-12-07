@@ -58,12 +58,12 @@ int main(
     cout << endl;
     cout << "Starting simulation!" << endl;
 
-    bool doKeepRunning = true;
-    while (doKeepRunning)
-    {
-      //Handle the next scheduled event now..
-      doKeepRunning = simObj.handleNextEvent();
-    }
+    // bool doKeepRunning = true;
+    // while (doKeepRunning)
+    // {
+    //   //Handle the next scheduled event now..
+    //   doKeepRunning = simObj.handleNextEvent();
+    // }
   }
 
   //Indicate whether things went well or not, and, if so, print out the

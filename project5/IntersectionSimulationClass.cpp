@@ -193,8 +193,33 @@ void IntersectionSimulationClass::scheduleArrival(
      const string &travelDir
      )
 {
-  cout << "THIS FUNCTION NEEDS TO BE IMPLEMENTED" << endl;
+  // Create new LightChange Event
+  EventClass NextArrivalEvent;
+  int arriveTime;
 
+  if (travelDir == EAST_DIRECTION)
+  {
+    arriveTime = getPositiveNormal(eastArrivalMean, eastArrivalStdDev);
+    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_EAST);
+  }
+  else if (travelDir == WEST_DIRECTION)
+  {
+    arriveTime = getPositiveNormal(westArrivalMean, westArrivalStdDev);
+    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_WEST);
+  }
+  else if (travelDir == NORTH_DIRECTION)
+  {
+    arriveTime = getPositiveNormal(northArrivalMean, northArrivalStdDev);
+    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_NORTH);
+  }
+  else if (travelDir == SOUTH_DIRECTION)
+  {
+    arriveTime = getPositiveNormal(southArrivalMean, southArrivalStdDev);
+    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_SOUTH);
+  }
+
+  eventList.insertValue(NextArrivalEvent);
+  cout << "Time:" << currentTime << " " << NextArrivalEvent << endl;
 }
 
 void IntersectionSimulationClass::scheduleLightChange(
@@ -230,6 +255,7 @@ void IntersectionSimulationClass::scheduleLightChange(
 
   eventList.insertValue(NextLightChange);
   cout << "Time:" << currentTime << " " << NextLightChange << endl;
+  // eventList.printForward();
 }
 
 bool IntersectionSimulationClass::handleNextEvent(
