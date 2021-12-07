@@ -31,7 +31,7 @@ int main()
 
   //test SortedListClass
   cout << " test SortedListClass" << endl;
-  SortedListClass testList;
+  SortedListClass<int> testList;
 
   testList.printForward(); //
   testList.printBackward();
@@ -62,7 +62,7 @@ int main()
   testList.printForward();  // -50 -50 -10 1 1 2 3 3
   testList.printBackward(); //3 3 2 1 1 -10 -50 -50
 
-  SortedListClass testList2(testList);
+  SortedListClass<int> testList2(testList);
   testList2.printForward();                // -50 -50 -10 1 1 2 3 3
   testList2.printBackward();               //3 3 2 1 1 -10 -50 -50
   cout << testList2.getNumElems() << endl; //8
@@ -103,9 +103,42 @@ int main()
   testList2.clear();
   testList2.printForward();
 
+  SortedListClass<char> testList3;
+  char value_char = 'w';
+
+  testList3.printForward(); //
+  testList3.printBackward();
+
+  testList3.insertValue('b');
+  testList3.printForward(); // b
+  testList3.printBackward();
+
+  testList3.insertValue('a');
+  testList3.printForward(); // a b
+  testList3.printBackward(); // b a
+
+  testList3.getElemAtIndex(-1, value_char);
+  cout << value_char << endl; //w
+
+  testList3.getElemAtIndex(2, value_char);
+  cout << value_char << endl; //w
+
+  testList3.getElemAtIndex(3, value_char);
+  cout << value_char << endl; //w
+
+  testList3.getElemAtIndex(0, value_char);
+  cout << value_char << endl; //a
+
+  testList3.getElemAtIndex(1, value_char);
+  cout << value_char << endl; //b
+
+  testList3.removeFront(value_char);
+  testList3.printForward();  //b
+  cout << value_char << endl; //a
+
   // test FIFOQueueClass
   cout << " test FIFOQueueClass" << endl;
-  FIFOQueueClass testFIFOQueueClass;
+  FIFOQueueClass<int> testFIFOQueueClass;
   int deque;
 
   testFIFOQueueClass.print(); //
@@ -133,6 +166,23 @@ int main()
 
   cout << testFIFOQueueClass.dequeue(deque) << endl; //0
 
+  FIFOQueueClass<char> testFIFOQueueClass2;
+  char deque_char;
+
+  testFIFOQueueClass2.print(); //
+
+  testFIFOQueueClass2.enqueue('a');
+  testFIFOQueueClass2.print(); //a
+
+  testFIFOQueueClass2.enqueue('b');
+  testFIFOQueueClass2.enqueue('a');
+  testFIFOQueueClass2.print(); //a b a
+
+  cout << testFIFOQueueClass2.getNumElems() << endl; //3
+
+  testFIFOQueueClass2.dequeue(deque_char);
+  testFIFOQueueClass2.print(); //b a
+  cout << deque_char << endl; //a
 
   return 0;
 }
