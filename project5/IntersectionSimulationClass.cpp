@@ -122,7 +122,7 @@ void IntersectionSimulationClass::readParametersFromFile(
     if (success)
     {
       paramF >> percentCarsAdvanceOnYellow;
-      if (paramF.fail() || 
+      if (paramF.fail() ||
           percentCarsAdvanceOnYellow < 0 ||
           percentCarsAdvanceOnYellow > 100)
       {
@@ -164,23 +164,23 @@ void IntersectionSimulationClass::printParameters() const
     cout << "  Simulation end time: " << timeToStopSim << endl;
 
     cout << "  East-West Timing -" <<
-            " Green: " << eastWestGreenTime << 
+            " Green: " << eastWestGreenTime <<
             " Yellow: " << eastWestYellowTime <<
             " Red: " << getEastWestRedTime() << endl;
 
     cout << "  North-South Timing -" <<
-            " Green: " << northSouthGreenTime << 
+            " Green: " << northSouthGreenTime <<
             " Yellow: " << northSouthYellowTime <<
             " Red: " << getNorthSouthRedTime() << endl;
 
     cout << "  Arrival Distributions:" << endl;
-    cout << "    East - Mean: " << eastArrivalMean << 
+    cout << "    East - Mean: " << eastArrivalMean <<
             " StdDev: " << eastArrivalStdDev << endl;
-    cout << "    West - Mean: " << westArrivalMean << 
+    cout << "    West - Mean: " << westArrivalMean <<
             " StdDev: " << westArrivalStdDev << endl;
-    cout << "    North - Mean: " << northArrivalMean << 
+    cout << "    North - Mean: " << northArrivalMean <<
             " StdDev: " << northArrivalStdDev << endl;
-    cout << "    South - Mean: " << southArrivalMean << 
+    cout << "    South - Mean: " << southArrivalMean <<
             " StdDev: " << southArrivalStdDev << endl;
 
     cout << "  Percentage cars advancing through yellow: " <<
@@ -199,7 +199,38 @@ void IntersectionSimulationClass::scheduleArrival(
 void IntersectionSimulationClass::scheduleLightChange(
      )
 {
-  cout << "THIS FUNCTION NEEDS TO BE IMPLEMENTED" << endl;
+  cout << "Create new LightChange Event" << endl;
+
+  // Create new LightChange Event
+  if (currentLight == LIGHT_GREEN_EW)
+  {
+    EventClass NextLightChange(
+        eastWestGreenTime + currentTime,
+        EVENT_CHANGE_YELLOW_EW);
+    eventList.insertValue(NextLightChange);
+  }
+  else if (currentLight == LIGHT_YELLOW_EW)
+  {
+    EventClass NextLightChange(
+        eastWestYellowTime + currentTime,
+        EVENT_CHANGE_GREEN_NS);
+    eventList.insertValue(NextLightChange);
+  }
+  else if (currentLight == LIGHT_GREEN_NS)
+  {
+    EventClass NextLightChange(
+        northSouthGreenTime + currentTime,
+        EVENT_CHANGE_YELLOW_NS);
+    eventList.insertValue(NextLightChange);
+  }
+  else
+  {
+    EventClass NextLightChange(
+        northSouthYellowTime + currentTime,
+        EVENT_CHANGE_GREEN_EW);
+    eventList.insertValue(NextLightChange);
+  }
+
 }
 
 bool IntersectionSimulationClass::handleNextEvent(
