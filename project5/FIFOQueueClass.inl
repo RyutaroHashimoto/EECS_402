@@ -23,7 +23,7 @@ void FIFOQueueClass<T>::enqueue(const T &newItem)
 {
     LinkedNodeClass<T> *newNodePtr = NULL;
     LinkedNodeClass<T> *tempNext;
-    int tempValue;
+    T tempValue;
 
     if (head == NULL)
     {
@@ -46,7 +46,7 @@ void FIFOQueueClass<T>::enqueue(const T &newItem)
 template <class T>
 bool FIFOQueueClass<T>::dequeue(T &outItem)
 {
-    LinkedNodeClass<T> *newHeadNodePtr;
+    LinkedNodeClass<T> *newTailNodePtr;
     if (head == NULL) //queue is empty
     {
         return false;
@@ -58,11 +58,11 @@ bool FIFOQueueClass<T>::dequeue(T &outItem)
     }
     else
     {
-        outItem = head->getValue();
-        newHeadNodePtr = head->getNext();
-        newHeadNodePtr->setPreviousPointerToNull();
-        delete head;
-        head = newHeadNodePtr;
+        outItem = tail->getValue();
+        newTailNodePtr = tail->getPrev();
+        newTailNodePtr->setNextPointerToNull();
+        delete tail;
+        tail = newTailNodePtr;
     }
     return true;
 }

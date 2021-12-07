@@ -219,7 +219,7 @@ void IntersectionSimulationClass::scheduleArrival(
   }
 
   eventList.insertValue(NextArrivalEvent);
-  cout << "Time:" << currentTime << " " << NextArrivalEvent << endl;
+  cout << "Time: " << currentTime << " Scheduled " << NextArrivalEvent << endl;
 }
 
 void IntersectionSimulationClass::scheduleLightChange(
@@ -254,14 +254,343 @@ void IntersectionSimulationClass::scheduleLightChange(
   }
 
   eventList.insertValue(NextLightChange);
-  cout << "Time:" << currentTime << " " << NextLightChange << endl;
-  // eventList.printForward();
+  cout << "Time:" << currentTime << " Scheduled " << NextLightChange << endl;
 }
 
 bool IntersectionSimulationClass::handleNextEvent(
      )
 {
-  cout << "THIS FUNCTION NEEDS TO BE IMPLEMENTED" << endl;
+  EventClass NextEvent;
+
+  if (eventList.getNumElems() == 0)
+  {
+    // when no further event is scheduled.
+    cout << endl << "No Event is scheduled." << endl;
+    return false;
+  }
+
+  // Get next event
+  eventList.removeFront(NextEvent);
+
+  if (NextEvent.getTimeOccurs() > timeToStopSim)
+  {
+    // Timelimit of Simulation.
+    cout << endl << "Next event occurs AFTER the simulation end time ("
+    << NextEvent << ")!" << endl;
+    return false;
+  }
+
+  currentTime = NextEvent.getTimeOccurs();
+
+  cout << endl << "Handling " << NextEvent << endl;
+
+  if (NextEvent.getType() == EVENT_ARRIVE_EAST)
+  {
+    // Add arriving car into Queue
+    CarClass NewCar(EAST_DIRECTION, currentTime);
+    eastQueue.enqueue(NewCar);
+    cout << "Time: " << currentTime << " Car #" << NewCar.getId()
+    << " arrives east-bound - queue length: "
+    << eastQueue.getNumElems() <<endl;
+
+    // Create new arriving Event
+    scheduleArrival(EAST_DIRECTION);
+  }
+  else if (NextEvent.getType() == EVENT_ARRIVE_WEST)
+  {
+    // Add arriving car into Queue
+    CarClass NewCar(WEST_DIRECTION, currentTime);
+    westQueue.enqueue(NewCar);
+    cout << "Time: " << currentTime << " Car #" << NewCar.getId()
+    << " arrives west-bound - queue length: "
+    << eastQueue.getNumElems() <<endl;
+
+    // Create new arriving Event
+    scheduleArrival(WEST_DIRECTION);
+  }
+  else if (NextEvent.getType() == EVENT_ARRIVE_NORTH)
+  {
+    // Add arriving car into Queue
+    CarClass NewCar(NORTH_DIRECTION, currentTime);
+    northQueue.enqueue(NewCar);
+    cout << "Time: " << currentTime << " Car #" << NewCar.getId()
+    << " arrives north-bound - queue length: "
+    << eastQueue.getNumElems() <<endl;
+
+    // Create new arriving Event
+    scheduleArrival(NORTH_DIRECTION);
+  }
+  else if (NextEvent.getType() == EVENT_ARRIVE_SOUTH)
+  {
+    // Add arriving car into Queue
+    CarClass NewCar(SOUTH_DIRECTION, currentTime);
+    southQueue.enqueue(NewCar);
+    cout << "Time: " << currentTime << " Car #" << NewCar.getId()
+    << " arrives south-bound - queue length: "
+    << eastQueue.getNumElems() <<endl;
+
+    // Create new arriving Event
+    scheduleArrival(SOUTH_DIRECTION);
+  }
+  else if (NextEvent.getType() == EVENT_CHANGE_GREEN_EW)
+  {
+    int countNorthCar = 0;
+    int countSouthCar = 0;
+    CarClass AdvancingCar;
+
+    cout << "Advancing cars on north-south yellow" << endl;
+
+    // Advancing cars on north bound
+    if (northQueue.getNumElems() == 0)
+    {
+      cout << "  No north-bound cars waiting to advance on yellow" << endl;
+    }
+    else
+    {
+      bool doStopFirstCar = false;
+      while (countNorthCar < northSouthYellowTime
+          && northQueue.getNumElems() > 0
+          && doStopFirstCar == false)
+      {
+        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        {
+          northQueue.dequeue(AdvancingCar);
+          cout << "  Car #" << AdvancingCar.getId()
+               << " advances north-bound" << endl;
+          countNorthCar++;
+        }
+        else{
+          if (countNorthCar == 0)
+          {
+            cout << "  Next north-bound car will NOT advance on yellow" << endl;
+          }
+            doStopFirstCar = true;
+        }
+      }
+    }
+
+    // Advancing cars on south bound
+    if (southQueue.getNumElems() == 0)
+    {
+      cout << "  No south-bound cars waiting to advance on yellow" << endl;
+    }
+    else
+    {
+      bool doStopFirstCar = false;
+      while (countSouthCar < northSouthYellowTime
+          && southQueue.getNumElems() > 0 && doStopFirstCar == false)
+      {
+        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        {
+          southQueue.dequeue(AdvancingCar);
+          cout << "  Car #" << AdvancingCar.getId()
+               << " advances south-bound" << endl;
+          countSouthCar++;
+        }
+        else
+        {
+          if (countSouthCar == 0)
+          {
+            cout << "  Next south-bound car will NOT advance on yellow" << endl;
+          }
+          doStopFirstCar = true;
+        }
+      }
+    }
+
+    cout << "North-bound cars advanced on yellow:" << countNorthCar
+         << " Remaining queue: " << northQueue.getNumElems() << endl;
+
+    cout << "South-bound cars advanced on yellow:" << countSouthCar
+         << " Remaining queue: " << southQueue.getNumElems() << endl;
+
+    // Switch light
+    currentLight = LIGHT_GREEN_EW;
+    // Create new LightChange Event
+    scheduleLightChange();
+  }
+  else if (NextEvent.getType() == EVENT_CHANGE_YELLOW_EW)
+  {
+    int countEastCar = 0;
+    int countWestCar = 0;
+    CarClass AdvancingCar;
+
+    cout << "Advancing cars on east-west green" << endl;
+
+    // Advancing cars on east bound
+    if (eastQueue.getNumElems() == 0)
+    {
+      cout << "  No east-bound cars waiting to advance on green" << endl;
+    }
+    else
+    {
+      while (countEastCar < eastWestGreenTime && eastQueue.getNumElems() > 0)
+      {
+        eastQueue.dequeue(AdvancingCar);
+        cout << "  Car #" << AdvancingCar.getId()
+             << " advances east-bound" << endl;
+        countEastCar++;
+      }
+    }
+
+    // Advancing cars on west bound
+    if (westQueue.getNumElems() == 0)
+    {
+      cout << "  No west-bound cars waiting to advance on green" << endl;
+    }
+    else
+    {
+      while (countWestCar < eastWestGreenTime && westQueue.getNumElems() > 0)
+      {
+        westQueue.dequeue(AdvancingCar);
+        cout << "  Car #" << AdvancingCar.getId()
+             << " advances west-bound" << endl;
+        countWestCar++;
+      }
+    }
+
+    cout << "East-bound cars advanced on green:" << countEastCar
+         << " Remaining queue: " << eastQueue.getNumElems() << endl;
+
+    cout << "West-bound cars advanced on green:" << countWestCar
+         << " Remaining queue: " << westQueue.getNumElems() << endl;
+
+    // Switch light
+    currentLight = LIGHT_YELLOW_EW;
+    // Create new LightChange Event
+    scheduleLightChange();
+  }
+  else if (NextEvent.getType() == EVENT_CHANGE_GREEN_NS)
+  {
+    int countEastCar = 0;
+    int countWestCar = 0;
+    CarClass AdvancingCar;
+
+    cout << "Advancing cars on east-west yellow" << endl;
+
+    // Advancing cars on east bound
+    if (eastQueue.getNumElems() == 0)
+    {
+      cout << "  No east-bound cars waiting to advance on yellow" << endl;
+    }
+    else
+    {
+      bool doStopFirstCar = false;
+      while (countEastCar < eastWestYellowTime && eastQueue.getNumElems() > 0 && doStopFirstCar == false)
+      {
+        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        {
+          eastQueue.dequeue(AdvancingCar);
+          cout << "  Car #" << AdvancingCar.getId()
+               << " advances east-bound" << endl;
+          countEastCar++;
+        }
+        else
+        {
+          if (countEastCar == 0)
+          {
+            cout << "  Next east-bound car will NOT advance on yellow" << endl;
+          }
+          doStopFirstCar = true;
+        }
+      }
+    }
+
+    // Advancing cars on west bound
+    if (westQueue.getNumElems() == 0)
+    {
+      cout << "  No west-bound cars waiting to advance on yellow" << endl;
+    }
+    else
+    {
+      bool doStopFirstCar = false;
+      while (countWestCar < eastWestYellowTime
+          && westQueue.getNumElems() > 0 && doStopFirstCar == false)
+      {
+        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        {
+          westQueue.dequeue(AdvancingCar);
+          cout << "  Car #" << AdvancingCar.getId()
+               << " advances west-bound" << endl;
+          countWestCar++;
+        }
+        else
+        {
+          if (countWestCar == 0)
+          {
+            cout << "  Next west-bound car will NOT advance on yellow" << endl;
+          }
+          doStopFirstCar = true;
+        }
+      }
+    }
+
+    cout << "East-bound cars advanced on yellow:" << countEastCar
+         << " Remaining queue: " << eastQueue.getNumElems() << endl;
+
+    cout << "West-bound cars advanced on yellow:" << countWestCar
+         << " Remaining queue: " << westQueue.getNumElems() << endl;
+
+    // Switch light
+    currentLight = LIGHT_GREEN_NS;
+    // Create new LightChange Event
+    scheduleLightChange();
+  }
+  else if (NextEvent.getType() == EVENT_CHANGE_YELLOW_NS)
+  {
+    int countNorthCar = 0;
+    int countSouthCar = 0;
+    CarClass AdvancingCar;
+
+    cout << "Advancing cars on north-south green" << endl;
+
+    // Advancing cars on north bound
+    if (northQueue.getNumElems() == 0)
+    {
+      cout << "  No north-bound cars waiting to advance on green" << endl;
+    }
+    else
+    {
+      while (countNorthCar < northSouthGreenTime
+          && northQueue.getNumElems() > 0)
+      {
+        northQueue.dequeue(AdvancingCar);
+        cout << "  Car #" << AdvancingCar.getId()
+             << " advances north-bound" << endl;
+        countNorthCar++;
+      }
+    }
+
+    // Advancing cars on south bound
+    if (westQueue.getNumElems() == 0)
+    {
+      cout << "  No south-bound cars waiting to advance on green" << endl;
+    }
+    else
+    {
+      while (countSouthCar < northSouthGreenTime
+          && southQueue.getNumElems() > 0)
+      {
+        southQueue.dequeue(AdvancingCar);
+        cout << "  Car #" << AdvancingCar.getId()
+             << " advances south-bound" << endl;
+        countSouthCar++;
+      }
+    }
+
+    cout << "North-bound cars advanced on green:" << countNorthCar
+         << " Remaining queue: " << northQueue.getNumElems() << endl;
+
+    cout << "South-bound cars advanced on green:" << countSouthCar
+         << " Remaining queue: " << southQueue.getNumElems() << endl;
+
+    // Switch light
+    currentLight = LIGHT_YELLOW_NS;
+    // Create new LightChange Event
+    scheduleLightChange();
+  }
+
+  return true;
 }
 
 void IntersectionSimulationClass::printStatistics(
