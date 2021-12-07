@@ -10,8 +10,6 @@
 #include "FIFOQueueClass.h"
 #include "CarClass.h"
 
-#include "random.h"
-
 //Programmer: Andrew Morgan
 //Date: November 2020
 //Purpose: A class that will act as the basis for an event-driven

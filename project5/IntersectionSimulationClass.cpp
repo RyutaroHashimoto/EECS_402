@@ -295,6 +295,12 @@ bool IntersectionSimulationClass::handleNextEvent(
 
     // Create new arriving Event
     scheduleArrival(EAST_DIRECTION);
+
+    // Update statistics
+    if (eastQueue.getNumElems() > maxEastQueueLength)
+    {
+      maxEastQueueLength = eastQueue.getNumElems();
+    }
   }
   else if (NextEvent.getType() == EVENT_ARRIVE_WEST)
   {
@@ -303,10 +309,16 @@ bool IntersectionSimulationClass::handleNextEvent(
     westQueue.enqueue(NewCar);
     cout << "Time: " << currentTime << " Car #" << NewCar.getId()
     << " arrives west-bound - queue length: "
-    << eastQueue.getNumElems() <<endl;
+    << westQueue.getNumElems() <<endl;
 
     // Create new arriving Event
     scheduleArrival(WEST_DIRECTION);
+
+    // Update statistics
+    if (westQueue.getNumElems() > maxWestQueueLength)
+    {
+      maxWestQueueLength = westQueue.getNumElems();
+    }
   }
   else if (NextEvent.getType() == EVENT_ARRIVE_NORTH)
   {
@@ -315,10 +327,16 @@ bool IntersectionSimulationClass::handleNextEvent(
     northQueue.enqueue(NewCar);
     cout << "Time: " << currentTime << " Car #" << NewCar.getId()
     << " arrives north-bound - queue length: "
-    << eastQueue.getNumElems() <<endl;
+    << northQueue.getNumElems() <<endl;
 
     // Create new arriving Event
     scheduleArrival(NORTH_DIRECTION);
+
+    // Update statistics
+    if (northQueue.getNumElems() > maxNorthQueueLength)
+    {
+      maxNorthQueueLength = northQueue.getNumElems();
+    }
   }
   else if (NextEvent.getType() == EVENT_ARRIVE_SOUTH)
   {
@@ -327,10 +345,16 @@ bool IntersectionSimulationClass::handleNextEvent(
     southQueue.enqueue(NewCar);
     cout << "Time: " << currentTime << " Car #" << NewCar.getId()
     << " arrives south-bound - queue length: "
-    << eastQueue.getNumElems() <<endl;
+    << southQueue.getNumElems() <<endl;
 
     // Create new arriving Event
     scheduleArrival(SOUTH_DIRECTION);
+
+    // Update statistics
+    if (southQueue.getNumElems() > maxSouthQueueLength)
+    {
+      maxSouthQueueLength = southQueue.getNumElems();
+    }
   }
   else if (NextEvent.getType() == EVENT_CHANGE_GREEN_EW)
   {
@@ -406,8 +430,13 @@ bool IntersectionSimulationClass::handleNextEvent(
 
     // Switch light
     currentLight = LIGHT_GREEN_EW;
+
     // Create new LightChange Event
     scheduleLightChange();
+
+    // Update statistics
+    numTotalAdvancedNorth = numTotalAdvancedNorth + countNorthCar;
+    numTotalAdvancedSouth = numTotalAdvancedSouth + countSouthCar;
   }
   else if (NextEvent.getType() == EVENT_CHANGE_YELLOW_EW)
   {
@@ -457,8 +486,13 @@ bool IntersectionSimulationClass::handleNextEvent(
 
     // Switch light
     currentLight = LIGHT_YELLOW_EW;
+
     // Create new LightChange Event
     scheduleLightChange();
+
+    // Update statistics
+    numTotalAdvancedEast = numTotalAdvancedEast + countEastCar;
+    numTotalAdvancedWest = numTotalAdvancedWest + countWestCar;
   }
   else if (NextEvent.getType() == EVENT_CHANGE_GREEN_NS)
   {
@@ -533,8 +567,13 @@ bool IntersectionSimulationClass::handleNextEvent(
 
     // Switch light
     currentLight = LIGHT_GREEN_NS;
+
     // Create new LightChange Event
     scheduleLightChange();
+
+    // Update statistics
+    numTotalAdvancedEast = numTotalAdvancedEast + countEastCar;
+    numTotalAdvancedWest = numTotalAdvancedWest + countWestCar;
   }
   else if (NextEvent.getType() == EVENT_CHANGE_YELLOW_NS)
   {
@@ -586,8 +625,13 @@ bool IntersectionSimulationClass::handleNextEvent(
 
     // Switch light
     currentLight = LIGHT_YELLOW_NS;
+
     // Create new LightChange Event
     scheduleLightChange();
+
+    // Update statistics
+    numTotalAdvancedNorth = numTotalAdvancedNorth + countNorthCar;
+    numTotalAdvancedSouth = numTotalAdvancedSouth + countSouthCar;
   }
 
   return true;
