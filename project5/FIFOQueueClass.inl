@@ -2,8 +2,10 @@
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 18, 2021
-//purpose: This program will define "FIFOQueueClass" class and its method.
+//Date: December 6, 2021
+//purpose: This program will template "FIFOQueueClass" class and its method.
+// Update: December 6 by Ryutaro Hashimoto
+//         Template FIFOQueueClass
 
 template <class T>
 FIFOQueueClass<T>::FIFOQueueClass()

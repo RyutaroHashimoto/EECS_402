@@ -9,6 +9,8 @@ using namespace std;
 //Name: Ryutaro Hashimoto
 //Date: November 18, 2021
 //purpose: This program will prototyped "LinkedNodeClass" class and its method.
+//Update: December 6 by Ryutaro Hashimoto
+//        Template LinkedNodeClass
 
 //The list node class will be the data type for individual nodes of
 //a doubly-linked data structure.

@@ -15,6 +15,9 @@
 //Purpose: A class that will act as the basis for an event-driven
 //         simulation involving traffic flow through an intersection
 //         that is managed via a traffic light.
+// Update: December 6 by Ryutaro Hashimoto
+//         Implement scheduleLightChange, scheduleLightChange and
+//         handleNextEvent
 class IntersectionSimulationClass
 {
   private:

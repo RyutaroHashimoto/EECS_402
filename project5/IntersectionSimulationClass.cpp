@@ -200,22 +200,26 @@ void IntersectionSimulationClass::scheduleArrival(
   if (travelDir == EAST_DIRECTION)
   {
     arriveTime = getPositiveNormal(eastArrivalMean, eastArrivalStdDev);
-    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_EAST);
+    NextArrivalEvent = EventClass(
+        arriveTime + currentTime, EVENT_ARRIVE_EAST);
   }
   else if (travelDir == WEST_DIRECTION)
   {
     arriveTime = getPositiveNormal(westArrivalMean, westArrivalStdDev);
-    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_WEST);
+    NextArrivalEvent = EventClass(
+        arriveTime + currentTime, EVENT_ARRIVE_WEST);
   }
   else if (travelDir == NORTH_DIRECTION)
   {
     arriveTime = getPositiveNormal(northArrivalMean, northArrivalStdDev);
-    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_NORTH);
+    NextArrivalEvent = EventClass(
+        arriveTime + currentTime, EVENT_ARRIVE_NORTH);
   }
   else if (travelDir == SOUTH_DIRECTION)
   {
     arriveTime = getPositiveNormal(southArrivalMean, southArrivalStdDev);
-    NextArrivalEvent = EventClass(arriveTime + currentTime, EVENT_ARRIVE_SOUTH);
+    NextArrivalEvent = EventClass(
+        arriveTime + currentTime, EVENT_ARRIVE_SOUTH);
   }
 
   eventList.insertValue(NextArrivalEvent);
@@ -386,7 +390,8 @@ bool IntersectionSimulationClass::handleNextEvent(
         else{
           if (countNorthCar == 0)
           {
-            cout << "  Next north-bound car will NOT advance on yellow" << endl;
+            cout << "  Next north-bound car will NOT advance on yellow"
+                 << endl;
           }
             doStopFirstCar = true;
         }
@@ -415,7 +420,8 @@ bool IntersectionSimulationClass::handleNextEvent(
         {
           if (countSouthCar == 0)
           {
-            cout << "  Next south-bound car will NOT advance on yellow" << endl;
+            cout << "  Next south-bound car will NOT advance on yellow"
+                 << endl;
           }
           doStopFirstCar = true;
         }
@@ -510,7 +516,8 @@ bool IntersectionSimulationClass::handleNextEvent(
     else
     {
       bool doStopFirstCar = false;
-      while (countEastCar < eastWestYellowTime && eastQueue.getNumElems() > 0 && doStopFirstCar == false)
+      while (countEastCar < eastWestYellowTime
+          && eastQueue.getNumElems() > 0 && doStopFirstCar == false)
       {
         if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
         {

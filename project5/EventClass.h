@@ -13,6 +13,8 @@
 //         an intersection managed by a traffic light, but the rest of
 //         the class is intended to be more generic to represent events
 //         in most event-driven simulations.
+// Update: December 6 by Ryutaro Hashimoto
+//         Operater overide to use EvenClass for SortedLinkedList.
 
 class EventClass
 {

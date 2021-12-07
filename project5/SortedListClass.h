@@ -10,6 +10,8 @@ using namespace std;
 //Name: Ryutaro Hashimoto
 //Date: November 18, 2021
 //purpose: This program will prototyped "SortedListClass" class and its method.
+// Update: December 6 by Ryutaro Hashimoto
+//         Template SortedListClass
 
 //The sorted list class does not store any data directly. Instead,
 //it contains a collection of LinkedNodeClass objects, each of which

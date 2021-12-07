@@ -2,10 +2,8 @@
 
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 18, 2021
-//purpose: This program will define "SortedListClass" class and its method.
-//Update: Nov 21, printed element indented two spaces (176, 192)
-//Update: Nov 21, change flow for pempty list (273)
+//Date: December 6, 2021
+//purpose: This program will template "SortedListClass" class and its method.
 
 template <class T>
 SortedListClass<T>::SortedListClass()

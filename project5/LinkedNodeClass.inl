@@ -1,8 +1,9 @@
 #include "LinkedNodeClass.h"
 //program header
 //Name: Ryutaro Hashimoto
-//Date: November 18, 2021
-//purpose: This program will define template of "LinkedNodeClass" class and its method.
+//Date: December 6, 2021
+//purpose: This program will define template of "LinkedNodeClass" class
+//         and its method.
 
 template <class T>
 LinkedNodeClass<T>::LinkedNodeClass(
