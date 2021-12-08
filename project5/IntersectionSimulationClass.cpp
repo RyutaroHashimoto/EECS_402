@@ -380,7 +380,7 @@ bool IntersectionSimulationClass::handleNextEvent(
           && northQueue.getNumElems() > 0
           && doStopFirstCar == false)
       {
-        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        if (getUniform(1, 100) <= percentCarsAdvanceOnYellow)
         {
           northQueue.dequeue(AdvancingCar);
           cout << "  Car #" << AdvancingCar.getId()
@@ -409,7 +409,7 @@ bool IntersectionSimulationClass::handleNextEvent(
       while (countSouthCar < northSouthYellowTime
           && southQueue.getNumElems() > 0 && doStopFirstCar == false)
       {
-        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        if (getUniform(1, 100) <= percentCarsAdvanceOnYellow)
         {
           southQueue.dequeue(AdvancingCar);
           cout << "  Car #" << AdvancingCar.getId()
@@ -519,7 +519,7 @@ bool IntersectionSimulationClass::handleNextEvent(
       while (countEastCar < eastWestYellowTime
           && eastQueue.getNumElems() > 0 && doStopFirstCar == false)
       {
-        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        if (getUniform(1, 100) <= percentCarsAdvanceOnYellow)
         {
           eastQueue.dequeue(AdvancingCar);
           cout << "  Car #" << AdvancingCar.getId()
@@ -548,7 +548,7 @@ bool IntersectionSimulationClass::handleNextEvent(
       while (countWestCar < eastWestYellowTime
           && westQueue.getNumElems() > 0 && doStopFirstCar == false)
       {
-        if (getUniform(0, 100) <= percentCarsAdvanceOnYellow)
+        if (getUniform(1, 100) <= percentCarsAdvanceOnYellow)
         {
           westQueue.dequeue(AdvancingCar);
           cout << "  Car #" << AdvancingCar.getId()
